@@ -18,9 +18,9 @@ class CreateUsersTable extends Migration
             $table->string('name',200);
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('primerAp',200);
-            $table->string('segundoAp',200);
-            $table->string('usuario',200);
+            $table->string('primerAp',200)->nullable();
+            $table->string('segundoAp',200)->nullable();
+            $table->string('usuario',200)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
