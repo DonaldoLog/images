@@ -1,7 +1,5 @@
 @extends('adminlte::page') @section('title', 'SAGARPA') @section('content_header')
-    @push('css')
-	 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.css"/>
-    @endpush
+
 <h1>INICIO</h1> @stop @section('content')
 <div class="row">
     <div class="col-md-12">
@@ -92,4 +90,3 @@
     </script>
 
 @endpush
-@include('sweet::alert')
