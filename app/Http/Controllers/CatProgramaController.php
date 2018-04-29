@@ -24,7 +24,7 @@ class CatProgramaController extends Controller
         $data = DB::table('cat_programa')
                ->join('cat_componente','cat_componente.idPrograma','=','cat_programa.id')
                ->select('cat_programa.id','cat_programa.nombre',DB::raw('ifnull(count(cat_componente.id),0) as total'))
-               ->where('cat_programa.deleted_at','!=',null)
+               ->where('cat_programa.deleted_at','=',null)
                ->groupBy('cat_programa.id')
                ->get();
         //$data=CatPrograma::orderBy('id','ASC')->get();
