@@ -23,6 +23,7 @@
                                     <th>ID</th>
                                     <th>Nombre</th>
                                     <th>No. Componentes</th>
+                                    <th>Accion</th>
                                 </thead>
                             </table>
                         </div>
@@ -54,9 +55,10 @@
                     "columns": [
                         {data: 'id',name: 'id'},
                         {data: 'nombre',name: 'nombre'},
+                        {data: 'total',name: 'total'},
                         {data: null,"orderable": false,
                             render: function(data, type, row) {
-                                return "<center><a href='{{ url('programa') }}/" + data.id + "/edit' class='btn btn-default btn-xs'><i class='fa fa-pencil' aria-hidden='true'></i> Editar</a><button id='borrar' name='" + data.nombre + "' value='" + data.id +"' class='btn btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> Eliminar</button></center>"
+                                return "<center><a href='{{ url('programa') }}/" + data.id + "/edit' class='btn btn-default'><i class='fa fa-pencil' aria-hidden='true'></i> Editar</a><button id='borrar' name='" + data.nombre + "' value='" + data.id +"' class='btn btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> Eliminar</button></center>"
                             }
                         }
                     ]

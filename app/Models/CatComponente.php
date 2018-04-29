@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CatComponente extends Model
 {
+     use SoftDeletes;
+
     public $table='cat_componente';
 
     public $fillable=[
@@ -13,4 +16,6 @@ class CatComponente extends Model
         'nombre',
         'imagen'
     ];
+
+    protected $dates = ['deleted_at'];
 }

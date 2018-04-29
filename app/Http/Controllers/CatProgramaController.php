@@ -11,12 +11,23 @@ use Alert;
 class CatProgramaController extends Controller
 {
     public function index(){
+        // $data = DB::table('cat_programa')
+        //        ->join('cat_componente','cat_componente.idPrograma','=','cat_programa.id')
+        //        ->select('cat_programa.id','cat_programa.nombre',DB::raw('ifnull(count(cat_componente.id),0) as total'))
+        //        ->where('cat_programa.deleted_at','!=',null)
+        //        ->groupBy('cat_programa.id')
+        //        ->get();
+        //  dd($data);
         return view('programa.index');
     }
     public function catProgramasDataTable(){
-         $data = DB::table('cat_programa')
-                ->join('cat_componente','cat_componente.idPrograma','cat_programa.id')
-        $data=CatPrograma::orderBy('id','ASC')->get();
+        $data = DB::table('cat_programa')
+               ->join('cat_componente','cat_componente.idPrograma','=','cat_programa.id')
+               ->select('cat_programa.id','cat_programa.nombre',DB::raw('ifnull(count(cat_componente.id),0) as total'))
+               ->where('cat_programa.deleted_at','!=',null)
+               ->groupBy('cat_programa.id')
+               ->get();
+        //$data=CatPrograma::orderBy('id','ASC')->get();
         return Datatables::of($data)->make(true);
     }
     public function create(){

@@ -115,6 +115,11 @@ return [
             'can'  => 'manage-blog',
         ],
         [
+                'text'        => 'USUARIOS',
+                'url'         => 'users',
+                'icon'        => 'user',
+        ],
+        [
             'text'        => 'PROGRAMAS',
             'url'         => 'programas',
             'icon'        => 'folder',
