@@ -15,7 +15,7 @@ class CreateCatComponentesTable extends Migration
     {
         Schema::create('cat_componente', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_programa');
+            $table->integer('idPrograma');
             $table->string('nombre',200);
             $table->string('imagen',200);
             $table->softDeletes();

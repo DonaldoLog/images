@@ -15,7 +15,7 @@ class CreateCatOrganizacionesTable extends Migration
     {
         Schema::create('cat_organizacion', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_componente');
+            $table->integer('idComponente');
             $table->string('nombre',200);
             $table->softDeletes();
             $table->timestamps();

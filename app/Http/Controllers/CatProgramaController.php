@@ -14,6 +14,8 @@ class CatProgramaController extends Controller
         return view('programa.index');
     }
     public function catProgramasDataTable(){
+         $data = DB::table('cat_programa')
+                ->join('cat_componente','cat_componente.idPrograma','cat_programa.id')
         $data=CatPrograma::orderBy('id','ASC')->get();
         return Datatables::of($data)->make(true);
     }
@@ -36,8 +38,11 @@ class CatProgramaController extends Controller
     public function show(){
         return view('programa.index');
     }
-    public function destroy(){
-        return view('programa.index');
+    public function destroy($id){
+        $programa = CatPrograma::find($id);
+        $programa->delete();
+        Alert::success('El programa ha sido eliminada con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
+        return redirect()->route('programa.index');
     }
 
 }
