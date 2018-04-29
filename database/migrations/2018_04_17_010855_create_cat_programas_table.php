@@ -16,7 +16,7 @@ class CreateCatProgramasTable extends Migration
         Schema::create('cat_programa', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre',200);
-            $table->string('imagen',200);
+            $table->string('imagen',200)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
