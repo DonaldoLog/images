@@ -30,6 +30,7 @@
     <!-- css  -->
     <!-- sweetalert  -->
     <link rel="stylesheet" href="{{asset ('css/sweetalert.css')}}">
+    <link rel="stylesheet" href="{{ asset('plugins/fileinput/css/fileinput.min.css') }}">
 
     @yield('adminlte_css')
 
@@ -48,6 +49,11 @@
 <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+
+    <!-- FileInput -->
+<script src="{{ asset('plugins/fileinput/js/fileinput.min.js')}}"></script>
+<script src="{{ asset('plugins/fileinput/themes/fa/theme.min.js')}}"></script>
+<script src="{{ asset('plugins/fileinput/js/locales/es.js')}}"></script>
 
     <!-- sweetalert -->
 <script src="{{asset ('js/sweetalert.min.js')}}"></script>

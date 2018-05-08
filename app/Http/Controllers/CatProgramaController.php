@@ -11,20 +11,20 @@ use Alert;
 class CatProgramaController extends Controller
 {
     public function index(){
-        // $data = DB::table('cat_programa')
-        //        ->join('cat_componente','cat_componente.idPrograma','=','cat_programa.id')
-        //        ->select('cat_programa.id','cat_programa.nombre',DB::raw('ifnull(count(cat_componente.id),0) as total'))
-        //        ->where('cat_programa.deleted_at','!=',null)
+        // $data =DB::table('cat_programa')
+        //        ->leftJoin('cat_componente','cat_componente.idPrograma','=','cat_programa.id')
+        //         ->select('cat_programa.id','cat_programa.nombre',DB::raw('ifnull(count(cat_componente.id),0) as total'))
+        //         ->where('cat_programa.deleted_at','=',null)
         //        ->groupBy('cat_programa.id')
         //        ->get();
-        //  dd($data);
+        //   dd($data);
         return view('programa.index');
     }
     public function catProgramasDataTable(){
-        $data = DB::table('cat_programa')
-               ->join('cat_componente','cat_componente.idPrograma','=','cat_programa.id')
-               ->select('cat_programa.id','cat_programa.nombre',DB::raw('ifnull(count(cat_componente.id),0) as total'))
-               ->where('cat_programa.deleted_at','=',null)
+        $data =DB::table('cat_programa')
+               ->leftJoin('cat_componente','cat_componente.idPrograma','=','cat_programa.id')
+                ->select('cat_programa.id','cat_programa.nombre',DB::raw('ifnull(count(cat_componente.id),0) as total'))
+                ->where('cat_programa.deleted_at','=',null)
                ->groupBy('cat_programa.id')
                ->get();
         //$data=CatPrograma::orderBy('id','ASC')->get();
@@ -34,11 +34,18 @@ class CatProgramaController extends Controller
         return view('programa.create');
     }
     public function store(Request $request){
-        //dd($request);
+        // dd($request);
         $programa=new CatPrograma();
         $programa->fill($request->all());
+        if ($request->file('imagen')) {
+                   $file = $request->file('imagen');
+                   $name = 'imagen'.$request->nombre.'_'.time().'.'.$file->getClientOriginalExtension();
+                   $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'programasImagenes'.DIRECTORY_SEPARATOR;
+                   $file->move($path, $name);
+                   $programa->imagen=$name;
+        }
         $programa->save();
-        return view('programa.index');
+        return redirect()->route('programa.index');
     }
     public function edit(){
         return view('programa.index');
