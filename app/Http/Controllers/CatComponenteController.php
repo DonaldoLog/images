@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\CatPrograma;
+use App\Models\CatComponente;
+use Yajra\DataTables\Datatables;
+use DB;
+use Alert;
 
 class CatComponenteController extends Controller
 {
@@ -10,47 +15,65 @@ class CatComponenteController extends Controller
         return view('componente.index');
     }
 
-    public function catProgramasDataTable(){
-        $data =DB::table('cat_programa')
-               ->leftJoin('cat_componente','cat_componente.idPrograma','=','cat_programa.id')
-                ->select('cat_programa.id','cat_programa.nombre',DB::raw('ifnull(count(cat_componente.id),0) as total'))
-                ->where('cat_programa.deleted_at','=',null)
-               ->groupBy('cat_programa.id')
+    public function catCompontesDataTable(){
+        $data =DB::table('cat_componente')
+               ->join('cat_programa','cat_programa.id','=','cat_componente.idPrograma')
+                ->select('cat_componente.id','cat_componente.nombre','cat_programa.nombre as programa')
+                ->whereNull('cat_componente.deleted_at')
+                ->whereNull('cat_programa.deleted_at')
                ->get();
         //$data=CatPrograma::orderBy('id','ASC')->get();
         return Datatables::of($data)->make(true);
     }
     public function create(){
-        return view('componente.create');
+        $programas=CatPrograma::orderBy('nombre', 'asc')->pluck('nombre','id');
+        return view('componente.create')->with('programas',$programas);
     }
     public function store(Request $request){
-        // dd($request);
-        $programa=new CatPrograma();
-        $programa->fill($request->all());
+        //dd($request);
+        $componente=new CatComponente();
+        $componente->fill($request->all());
         if ($request->file('imagen')) {
                    $file = $request->file('imagen');
                    $name = 'imagen'.$request->nombre.'_'.time().'.'.$file->getClientOriginalExtension();
-                   $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'programasImagenes'.DIRECTORY_SEPARATOR;
+                   $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'componenteImagen'.DIRECTORY_SEPARATOR;
                    $file->move($path, $name);
-                   $programa->imagen=$name;
+                   $componente->imagen=$name;
         }
-        $programa->save();
-        return redirect()->route('programa.index');
+        $componente->idPrograma=$request->idPrograma;
+        $componente->save();
+        Alert::success('El componente ha sido guardado con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
+        return redirect()->route('componente.index');
     }
-    public function edit(){
-        return view('programa.index');
+    public function edit($id){
+        $componente=CatComponente::find($id);
+        $programas=CatPrograma::orderBy('nombre', 'asc')->pluck('nombre','id');
+
+        return view('componente.edit')->with('componente',$componente)->with('programas',$programas);
     }
-    public function update(){
-        return view('programa.index');
+    public function update(Request $request,$id){
+        $componente=CatComponente::find($id);
+        $componente->fill($request->all());
+        if ($request->file('imagen')) {
+                   $file = $request->file('imagen');
+                   $name = 'imagen'.$request->nombre.'_'.time().'.'.$file->getClientOriginalExtension();
+                   $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'componenteImagen'.DIRECTORY_SEPARATOR;
+                   $file->move($path, $name);
+                   $componente->imagen=$name;
+        }
+        $componente->idPrograma=$request->idPrograma;
+        $componente->save();
+        Alert::success('El componente ha sido actualizado con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
+        return redirect()->route('componente.index');
     }
     public function show(){
         return view('programa.index');
     }
     public function destroy($id){
-        $programa = CatPrograma::find($id);
-        $programa->delete();
+        $componente = CatComponente::find($id);
+        $componente->delete();
         Alert::success('El programa ha sido eliminada con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
-        return redirect()->route('programa.index');
+        return redirect()->route('componente.index');
     }
 
 }
