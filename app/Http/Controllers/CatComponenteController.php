@@ -18,9 +18,11 @@ class CatComponenteController extends Controller
     public function catCompontesDataTable(){
         $data =DB::table('cat_componente')
                ->join('cat_programa','cat_programa.id','=','cat_componente.idPrograma')
-                ->select('cat_componente.id','cat_componente.nombre','cat_programa.nombre as programa')
+               ->leftjoin('cat_organizacion','cat_organizacion.idComponente','=','cat_componente.id')
+                ->select('cat_componente.id','cat_componente.nombre','cat_programa.nombre as programa',DB::raw('ifnull(count(cat_organizacion.id),0) as organizaciones'))
                 ->whereNull('cat_componente.deleted_at')
                 ->whereNull('cat_programa.deleted_at')
+                ->groupBy('cat_componente.id')
                ->get();
         //$data=CatPrograma::orderBy('id','ASC')->get();
         return Datatables::of($data)->make(true);

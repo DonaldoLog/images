@@ -13,9 +13,14 @@ class CatOrganizacion extends Model
     public $table='cat_organizacion';
 
     public $fillable=[
-        'id_componente',
+        'idComponente',
         'nombre'
     ];
 
     protected $dates = ['deleted_at'];
+
+    public function componente()
+    {
+    return $this->belongsTo('App\Models\CatComponente');
+    }
 }

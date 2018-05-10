@@ -1,22 +1,22 @@
 @extends('adminlte::page') @section('title', 'SAGARPA') @section('content_header')
-<h1>INICIO</h1> @stop @section('content')
+<h1>AGREGAR ORGANIZACION</h1> @stop @section('content')
 <div class="row">
     <div class="col-md-12">
         <div class="box">
             <!--box-header -->
             <div class="box-header with-border">
-                <h3 class="box-title">COMPONENTES</h3>
+                <h3 class="box-title">ORGANIZACION</h3>
             </div>
 
             <!--box-body -->
             <div class="box-body">
                 <div class="row">
+                    {{Form::open(['route' => 'organizacion.store','enctype'=>'multipart/form-data'])}}
+                    @include('organizacion.fields')
                     <div class="form-group col-md-12">
-                        <div class="pull-right">
-                            <a type="button" href="{{route('componente.create')}}" class="btn btn-default">AGREGAR COMPONENTE</a>
-                        </div>
+                        {{Form::submit('Guardar',['class'=>'btn btn-success'])}}
                     </div>
-                    @include('componente.table')
+                    {{Form::close()}}
                 </div>
             </div>
             <!--box-footer -->
@@ -29,4 +29,3 @@
     </div>
 </div>
 @stop
-@include('componente.scripts')

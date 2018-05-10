@@ -58,6 +58,7 @@ class CatProgramaController extends Controller
     }
     public function destroy($id){
         $programa = CatPrograma::find($id);
+        $componentes=$programa->componentes()->delete();
         $programa->delete();
         Alert::success('El programa ha sido eliminada con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
         return redirect()->route('programa.index');

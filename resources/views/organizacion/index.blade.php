@@ -5,7 +5,7 @@
         <div class="box">
             <!--box-header -->
             <div class="box-header with-border">
-                <h3 class="box-title">Organizaciones</h3>
+                <h3 class="box-title">ORGANIZACIONES</h3>
             </div>
 
             <!--box-body -->
@@ -13,10 +13,10 @@
                 <div class="row">
                     <div class="form-group col-md-12">
                         <div class="pull-right">
-                            <a type="button" href="{{route('programa.create')}}" class="btn btn-default">AGREGAR PROGRAMA</a>
+                            <a type="button" href="{{route('organizacion.create')}}" class="btn btn-default">AGREGAR ORGANIZACION</a>
                         </div>
                     </div>
-                    @include('programa.table')
+                    @include('organizacion.table')
                 </div>
             </div>
             <!--box-footer -->
@@ -29,3 +29,4 @@
     </div>
 </div>
 @stop
+@include('organizacion.scripts')

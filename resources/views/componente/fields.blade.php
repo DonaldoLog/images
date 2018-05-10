@@ -28,18 +28,19 @@
               showUpload: false,
               allowedFileExtensions: ['jpg', 'jpeg', 'png']
           });
+
+          $('select').select2();
+          @isset($componente)
+          imagen='{{$componente->imagen}}';
+          url1="../../storage/componenteImagen//"+imagen;
+          $("#imagen").fileinput({
+              initialPreview: [url1],
+              initialPreviewAsData: true,
+              deleteUrl: "",
+              overwriteInitial: true,
+              maxFileSize: 100,
+          });
+          @endisset
     });
-    $('select').select2();
-    @isset($componente)
-    imagen='{{$componente->imagen}}';
-    url1="../../storage/componenteImagen//"+imagen;
-    $("#imagen").fileinput({
-        initialPreview: [url1],
-        initialPreviewAsData: true,
-        deleteUrl: "",
-        overwriteInitial: true,
-        maxFileSize: 100,
-    });
-    @endisset
     </script>
 @endpush

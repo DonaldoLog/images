@@ -12,10 +12,20 @@ class CatComponente extends Model
     public $table='cat_componente';
 
     public $fillable=[
-        'id_programa',
+        'idPrograma',
         'nombre',
         'imagen'
     ];
 
     protected $dates = ['deleted_at'];
+
+    public function organizaciones()
+    {
+    return $this->hasMany('App\Models\CatOrganizacion','idComponente','id');
+    }
+
+    public function programa()
+    {
+    return $this->belongsTo('App\Models\CatPrograma','id','idPrograma');
+    }
 }
