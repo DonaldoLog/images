@@ -73,6 +73,7 @@ class CatComponenteController extends Controller
     }
     public function destroy($id){
         $componente = CatComponente::find($id);
+        $organizaciones=$componente->organizaciones()->delete();
         $componente->delete();
         Alert::success('El programa ha sido eliminada con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
         return redirect()->route('componente.index');
