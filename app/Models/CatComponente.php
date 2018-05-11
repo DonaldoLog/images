@@ -27,7 +27,7 @@ class CatComponente extends Model
 
     public function programa()
     {
-    return $this->belongsTo('App\Models\CatPrograma','id','idPrograma');
+    return $this->belongsTo('App\Models\CatPrograma','idPrograma','id');
     }
-    
+
 }

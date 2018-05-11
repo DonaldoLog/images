@@ -12,7 +12,6 @@ class CatPrograma extends Model
     public $table='cat_programa';
 
     public $fillable=[
-        'id',
         'nombre',
         'imagen'
     ];
