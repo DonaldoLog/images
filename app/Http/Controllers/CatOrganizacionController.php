@@ -29,9 +29,7 @@ class CatOrganizacionController extends Controller
         return Datatables::of($data)->make(true);
     }
     public function create(){
-        $componentes=CatComponente::all();
-        dd($componentes);
-        $componentes=CatPrograma::all()->load('componentes')->pluck('nombre','id');
+        $componentes=CatComponente::all()->pluck('nombre','id');
         return view('organizacion.create')->with('componentes',$componentes);
     }
     public function store(Request $request){

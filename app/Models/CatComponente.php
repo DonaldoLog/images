@@ -12,6 +12,7 @@ class CatComponente extends Model
     public $table='cat_componente';
 
     public $fillable=[
+        'id',
         'idPrograma',
         'nombre',
         'imagen'
@@ -28,4 +29,5 @@ class CatComponente extends Model
     {
     return $this->belongsTo('App\Models\CatPrograma','id','idPrograma');
     }
+    
 }

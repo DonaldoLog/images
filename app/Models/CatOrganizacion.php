@@ -21,6 +21,6 @@ class CatOrganizacion extends Model
 
     public function componente()
     {
-    return $this->belongsTo('App\Models\CatComponente');
+    return $this->belongsTo('App\Models\CatComponente','id','idComponente');
     }
 }
