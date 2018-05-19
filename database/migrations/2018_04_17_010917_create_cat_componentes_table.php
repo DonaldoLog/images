@@ -17,7 +17,7 @@ class CreateCatComponentesTable extends Migration
             $table->increments('id');
             $table->integer('idPrograma');
             $table->string('nombre',200);
-            $table->string('imagen',200);
+            $table->string('imagen',200)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
