@@ -33,6 +33,9 @@
     <link rel="stylesheet" href="{{ asset('plugins/fileinput/css/fileinput.min.css') }}">
 
     @yield('adminlte_css')
+    <style media="screen">
+        .mayus { text-transform: uppercase; }
+    </style>
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -79,5 +82,10 @@
 
 @yield('adminlte_js')
 @include('sweet::alert')
+<script type="text/javascript">
+$('.mayus').change(function() {
+   $(this).val($(this).val().toUpperCase());
+});
+</script>
 </body>
 </html>

@@ -1,11 +1,11 @@
 <div class="form-group col-sm-6">
     {!! Form::label('nombre', 'Nombre:') !!}
-    {!! Form::text('nombre', null, ['class' => 'form-control']) !!}
+    {!! Form::text('nombre', null, ['class' => 'form-control mayus','requred']) !!}
 </div>
 
 <div class="form-group col-sm-6">
     {!! Form::label('idComponente', 'Componente:') !!}
-    {!!Form::select('idComponente',$componentes,null, ['class'=>'form-control','placeholder' => 'Selecciona un componente'])!!}
+    {!!Form::select('idComponente',$componentes,null, ['class'=>'form-control mayus','placeholder' => 'Selecciona un componente','required'])!!}
 </div>
 
 

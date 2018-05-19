@@ -1,6 +1,6 @@
 <div class="form-group col-sm-6">
     {!! Form::label('nombre', 'Nombre:') !!}
-    {!! Form::text('nombre', null, ['class' => 'form-control']) !!}
+    {!! Form::text('nombre', null, ['class' => 'form-control mayus','requred']) !!}
 </div>
 <div class="form-group col-sm-6">
     {!! Form::label('imagen', 'Imagen:') !!}
