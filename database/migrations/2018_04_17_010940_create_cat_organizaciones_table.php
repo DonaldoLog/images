@@ -19,6 +19,10 @@ class CreateCatOrganizacionesTable extends Migration
             $table->string('nombre',200);
             $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('idComponente')
+            ->references('id')->on('cat_componente')
+            ->onDelete('cascade');
         });
     }
 

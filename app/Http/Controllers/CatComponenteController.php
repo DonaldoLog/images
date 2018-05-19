@@ -19,9 +19,12 @@ class CatComponenteController extends Controller
 
     public function catCompontesDataTable(){
         $data =CatComponente::withCount('organizaciones')->with('programa')->get();
-        foreach ($data as $d) {
-            $d->idPrograma=$d->programa->nombre;
+        if($data->isNotEmpty()){
+            foreach ($data as $d) {
+                $d->idPrograma=$d->programa->nombre;
+            }
         }
+
         return Datatables::of($data)->make(true);
     }
     public function create(){

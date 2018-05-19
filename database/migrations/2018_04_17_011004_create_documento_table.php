@@ -19,6 +19,10 @@ class CreateDocumentoTable extends Migration
             $table->string('archivo',200);
             $table->string('nombre',200);
             $table->timestamps();
+
+            $table->foreign('idEmpresa')
+            ->references('id')->on('cat_organizacion')
+            ->onDelete('cascade');
         });
     }
 

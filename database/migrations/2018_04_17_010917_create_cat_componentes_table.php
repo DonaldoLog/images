@@ -20,6 +20,10 @@ class CreateCatComponentesTable extends Migration
             $table->string('imagen',200)->nullable();
             $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('idPrograma')
+            ->references('id')->on('cat_programa')
+            ->onDelete('cascade');
         });
     }
 
