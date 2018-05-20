@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\CatOrganizacion;
 use App\Models\CatComponente;
 use App\Models\CatPrograma;
+use App\Models\Documento;
 use Yajra\DataTables\Datatables;
 use DB;
 use Alert;
@@ -43,12 +44,11 @@ class CatOrganizacionController extends Controller
     }
     public function edit($id){
         $organizacion=Catorganizacion::find($id);
-        $componentes=CatComponente::orderBy('nombre', 'asc')
-        ->whereNull('cat_organizacion.deleted_at')
-        ->whereNull('cat_componente.deleted_at')
-        ->pluck('nombre','id');
+        $componentes=CatComponente::orderBy('nombre', 'asc')->pluck('nombre','id');
+        $documentos=Documento::where('idEmpresa','=',$id)->get();
 
-        return view('organizacion.edit')->with('organizacion',$organizacion)->with('componentes',$componentes);
+
+        return view('organizacion.edit')->with('organizacion',$organizacion)->with('componentes',$componentes)->with('documentos',$documentos);
     }
     public function update(Request $request,$id){
         $organizacion=Catorganizacion::find($id);

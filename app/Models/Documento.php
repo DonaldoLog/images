@@ -9,10 +9,10 @@ class Documento extends Model
 {
      use SoftDeletes;
 
-    public $table='id_empresa';
+    public $table='documento';
 
     public $fillable=[
-        'id_empresa',
+        'idEmpresa',
         'archivo',
         'nombre'
     ];

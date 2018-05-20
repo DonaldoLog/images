@@ -52,3 +52,7 @@ Route::get('/organizacion/{id}/edit', 'CatOrganizacionController@edit')->name('o
 Route::put('/organizacion/{id}', 'CatOrganizacionController@update')->name('organizacion.update');
 Route::get('/organizacion/{id}', 'CatOrganizacionController@show')->name('organizacion.show');
 Route::get('/organizacion/{id}/delete', 'CatOrganizacionController@destroy')->name('organizacion.destroy');
+
+
+//-------------------------------------------------------------------------- Archivos --------------------------------------------------------------------------
+Route::post('documento', 'OrganizacionController@guardarArchivo')->name('save.file');

@@ -21,9 +21,9 @@ class CreateCatComponentesTable extends Migration
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('idPrograma')
-            ->references('id')->on('cat_programa')
-            ->onDelete('cascade');
+            // $table->foreign('idPrograma')
+            // ->references('id')->on('cat_programa')
+            // ->onDelete('cascade');
         });
     }
 
