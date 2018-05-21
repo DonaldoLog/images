@@ -14,7 +14,7 @@
                 <div class="form-group col-md-12">
 
                 <div class="pull-right">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">AGREGAR ARCHIVO</button>
+                        <button id="addFile" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">AGREGAR ARCHIVO</button>
                     </div>
                 </div>
 
@@ -134,6 +134,18 @@
 
         });
         console.log(id);
+    });
+
+    $('#addFile').on('click', function(event) {
+        $('#file').fileinput('destroy');
+        $("#file").fileinput({
+              language: 'es',
+              theme: 'fa',
+              showPreview: true,
+              showRemove: false,
+              showUpload:false,
+              allowedFileExtensions: ['jpg', 'jpeg', 'png','xdoc','ppt']
+          });
     });
 
     </script>
