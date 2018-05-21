@@ -14,12 +14,27 @@ use Alert;
 class OrganizacionController extends Controller
 {
     public function guardarArchivo(Request $request){
-        $nombreEmpresa=CatOrganizacion::find($request->id)->select('nombre')->get()->first();
+        $nombreEmpresa=CatOrganizacion::find($request->idEmpresa)->select('nombre')->get()->first();
 
-        $archivo= new Documento();
-        $archivo->idEmpresa=$request->id;
-        $archivo->nombre=$request->nombreArhivo;
-        if ($request->file('file')) {
+        if($request->idFile!="" || $request->idFile!=null){
+            $archivo=Documento::find($request->id);
+            $archivo->nombre=$request->nombreArhivo;
+            if ($request->file('file')) {
+                    $file = $request->file('file');
+                    $name = 'archivo'.$nombreEmpresa->nombre.'_'.time().'.'.$file->getClientOriginalExtension();
+                    $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'archivos'.DIRECTORY_SEPARATOR;
+                    $file->move($path, $name);
+                    $archivo->archivo=$name;
+                }else {
+                    $archivo->archivo=null;
+                }
+            $archivo->save();
+
+        }else {
+            $archivo= new Documento();
+            $archivo->idEmpresa=$request->idEmpresa;
+            $archivo->nombre=$request->nombreArhivo;
+            if ($request->file('file')) {
                 $file = $request->file('file');
                 $name = 'archivo'.$nombreEmpresa->nombre.'_'.time().'.'.$file->getClientOriginalExtension();
                 $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'archivos'.DIRECTORY_SEPARATOR;
@@ -28,8 +43,14 @@ class OrganizacionController extends Controller
             }else {
                 $archivo->archivo=null;
             }
-        $archivo->save();
+            $archivo->save();
+        }
+        return redirect()->route('organizacion.edit',$request->idEmpresa);
 
-        return redirect()->route('organizacion.edit',$request->id);
+    }
+
+    public function getArchivo($id){
+        $file= Documento::find($id);
+        return [$file];
     }
 }

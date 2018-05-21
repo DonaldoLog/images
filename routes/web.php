@@ -56,3 +56,5 @@ Route::get('/organizacion/{id}/delete', 'CatOrganizacionController@destroy')->na
 
 //-------------------------------------------------------------------------- Archivos --------------------------------------------------------------------------
 Route::post('documento', 'OrganizacionController@guardarArchivo')->name('save.file');
+Route::post('documento/editar/', 'OrganizacionController@editarArchivo')->name('edit.file');
+Route::get('documento/{id}', 'OrganizacionController@getArchivo')->name('file.get');

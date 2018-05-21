@@ -41,8 +41,7 @@
                                             <td>{!!$documento->id!!}</td>
                                             <td>{!!$documento->nombre!!}</td>
                                             <td>
-                                                <a type="button" class="btn btn-info">VER</a>
-                                                <a type="button" class="btn btn-warning">EDITAR</a>
+                                                <button type="button" value='{!!$documento->id!!}'  data-toggle="modal" data-target="#myModal" class="btn btn-warning editar">EDITAR</button>
                                                 <a type="button" class="btn btn-danger">ELIMINAR</a>
                                             </td>
                                         </tr>
@@ -72,7 +71,7 @@
 @include('organizacion.scriptsTable')
 
 
-<!-- Modal -->
+<!-- Modal CREAR -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -83,8 +82,9 @@
       <div class="modal-body">
           {!!Form::open(['route'=>'save.file','enctype'=>'multipart/form-data'])!!}
               {!! Form::label('nombreArhivo', 'NOMBRE:') !!}
-              {!! Form::text('nombreArhivo', null, ['class' => 'form-control mayus','required']) !!}
-              {!! Form::hidden('id', $organizacion->id) !!}
+              {!! Form::text('nombreArhivo', null, ['class' => 'form-control mayus','required','id'=>'nombreArhivo']) !!}
+              {!! Form::hidden('idFile', '') !!}
+              {!! Form::hidden('idEmpresa', $organizacion->id) !!}
               {!! Form::label('file', 'ARCHIVO:') !!}
               <input type="file"  class="archivo" id="file" name="file">
       </div>
@@ -97,4 +97,44 @@
     </div>
   </div>
 </div>
+
 @stop
+@push('js')
+    <script type="text/javascript">
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+    $('#organizacionTable').on('click', '.editar', function(){
+        var id=this.value;
+        $( "input[name='idFile']" ).val(id);
+        $.get(route('file.get',id), function(res) {
+            console.log(res[0]['nombre']);
+            $('#nombreArhivo').val(res[0]['nombre']);
+            ///-------
+            $('#file').fileinput('destroy');
+            $("#file").fileinput({
+                language: 'es',
+                theme: 'fa',
+                allowedFileExtensions: ['jpg', 'jpeg', 'png', 'pdf'],
+                overwriteInitial: false,
+                showUpload: false,
+                showRemove: false,
+                initialPreviewConfig: [
+                    {downloadUrl:("../../storage/archivos/" + res[0]['archivo']),key: res[0]['archivo']},
+                ],
+                initialPreviewAsData: true,
+                initialPreview: [
+                    "../../storage/archivos/" + res[0]['archivo']
+                ]
+            });
+
+
+
+        });
+        console.log(id);
+    });
+
+    </script>
+@endpush
