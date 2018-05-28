@@ -53,4 +53,11 @@ class OrganizacionController extends Controller
         $file= Documento::find($id);
         return [$file];
     }
+
+    public function docDestroy($id){
+        $file=Documento::find($id);
+        $file->delete();
+        return ['success'=>true];
+    }
+
 }
