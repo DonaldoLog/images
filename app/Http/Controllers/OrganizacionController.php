@@ -21,7 +21,7 @@ class OrganizacionController extends Controller
             $archivo->nombre=$request->nombreArhivo;
             if ($request->file('file')) {
                     $file = $request->file('file');
-                    $name = 'archivo'.$nombreEmpresa->nombre.'_'.time().'.'.$file->getClientOriginalExtension();
+                    $name = $nombreEmpresa->nombre."_".$request->nombreArhivo.'_'.time().'.'.$file->getClientOriginalExtension();
                     $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'archivos'.DIRECTORY_SEPARATOR;
                     $file->move($path, $name);
                     $archivo->archivo=$name;
@@ -36,7 +36,7 @@ class OrganizacionController extends Controller
             $archivo->nombre=$request->nombreArhivo;
             if ($request->file('file')) {
                 $file = $request->file('file');
-                $name = 'archivo'.$nombreEmpresa->nombre.'_'.time().'.'.$file->getClientOriginalExtension();
+                $name = $nombreEmpresa->nombre."_".$request->nombreArhivo.'_'.time().'.'.$file->getClientOriginalExtension();
                 $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'archivos'.DIRECTORY_SEPARATOR;
                 $file->move($path, $name);
                 $archivo->archivo=$name;
