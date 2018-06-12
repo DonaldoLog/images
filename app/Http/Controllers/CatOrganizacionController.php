@@ -14,17 +14,18 @@ use Alert;
 
 class CatOrganizacionController extends Controller
 {
-    public function index(){
-        return view('organizacion.index');
+    public function index($idPrograma,$idComponente){
+        return view('organizacion.index')->with('idPrograma',$idPrograma)->with('idComponente',$idComponente);
     }
 
-    public function catOrganizacionesDataTable(){
+    public function catOrganizacionesDataTable($idComponente){
         $data =DB::table('cat_organizacion')
                ->join('cat_componente','cat_componente.id','=','cat_organizacion.idComponente')
                 ->select('cat_organizacion.id','cat_organizacion.nombre','cat_componente.nombre as componente')
                 ->whereNull('cat_organizacion.deleted_at')
                 ->whereNull('cat_componente.deleted_at')
                 ->whereNull('cat_organizacion.deleted_at')
+                ->where('cat_organizacion.idComponente',$idComponente)
                ->get();
         //$data=CatComponente::orderBy('id','ASC')->get();
         return Datatables::of($data)->make(true);

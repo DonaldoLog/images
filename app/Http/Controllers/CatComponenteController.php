@@ -79,4 +79,13 @@ class CatComponenteController extends Controller
         return redirect()->route('componente.index');
     }
 
+    public function componentes($idPrograma){
+        $componentes=CatComponente::where('idPrograma',$idPrograma)->get();
+        return view('componente.indexComponentes')->with('componentes',$componentes)->with('idPrograma',$idPrograma);
+    }
+    public function createComponente($idPrograma){
+        $programas=CatPrograma::where('id',$idPrograma)->pluck('nombre','id');
+        return view('componente.createComponente')->with('programas',$programas);
+    }
+
 }

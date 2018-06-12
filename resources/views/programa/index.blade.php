@@ -16,7 +16,19 @@
                             <a type="button" href="{{route('programa.create')}}" class="btn btn-default">AGREGAR PROGRAMA</a>
                         </div>
                     </div>
-                    @include('programa.table')
+                    <div class="form-group col-md-12">
+                        @foreach ($data as $dato)
+                            <div class="col-md-4 ">
+                                <h3 align="center">{!!$dato->nombre!!}</h3>
+                                <center>
+                                    <a href="{{ url('programa') }}/{!!$dato->id!!}/componentes" >
+                                        <img  class="img"src='../public/storage/programasImagenes/{!!$dato->imagen!!}' height="300" width="400">
+                                    </a>
+                                </center>
+                            </div>
+                        @endforeach
+                    </div>
+                    {{-- @include('programa.table') --}}
                 </div>
             </div>
             <!--box-footer -->
@@ -29,4 +41,4 @@
     </div>
 </div>
 @stop
-@include('programa.scripts')
+{{-- @include('programa.scripts') --}}

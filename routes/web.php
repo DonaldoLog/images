@@ -33,7 +33,9 @@ Route::get('/programa/{id}/delete', 'CatProgramaController@destroy')->name('prog
 //-------------------------------------------------------------------------- COMPONENTES --------------------------------------------------------------------------
 Route::get('catCompontes', 'CatComponenteController@catCompontesDataTable');
 Route::get('/componentes', 'CatComponenteController@index')->name('componente.index');
+Route::get('/programa/{idPrograma}/componentes', 'CatComponenteController@componentes')->name('programa.componentes');
 Route::get('/componente/create', 'CatComponenteController@create')->name('componente.create');
+Route::get('/programa/{idPrograma}/componente/create', 'CatComponenteController@createComponente')->name('programa.create.componente');
 Route::post('/componente/store', 'CatComponenteController@store')->name('componente.store');
 Route::get('/componente/{id}/edit', 'CatComponenteController@edit')->name('componente.edit');
 Route::put('/componente/{id}', 'CatComponenteController@update')->name('componente.update');
@@ -41,8 +43,9 @@ Route::get('/componente/{id}', 'CatComponenteController@show')->name('componente
 Route::get('/componente/{id}/delete', 'CatComponenteController@destroy')->name('componente.destroy');
 
 //-------------------------------------------------------------------------- Organizaciones --------------------------------------------------------------------------
-Route::get('catOrganizaciones', 'CatOrganizacionController@catOrganizacionesDataTable');
+Route::get('catOrganizaciones/{idComponente}', 'CatOrganizacionController@catOrganizacionesDataTable')->name('catOrganizaciones');
 Route::get('/organizaciones', 'CatOrganizacionController@index')->name('organizacion.index');
+Route::get('/programa/{idPrograma}/componente/{idComponente}/organizaciones', 'CatOrganizacionController@index')->name('componente.index.programa');
 Route::get('/organizacion/create', 'CatOrganizacionController@create')->name('organizacion.create');
 Route::post('/organizacion/store', 'CatOrganizacionController@store')->name('organizacion.store');
 Route::get('/organizacion/{id}/edit', 'CatOrganizacionController@edit')->name('organizacion.edit');

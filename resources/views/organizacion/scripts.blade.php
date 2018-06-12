@@ -1,13 +1,14 @@
 @push('js')
     <script type="text/javascript">
     $(document).ready(function() {
+        console.log(route('organizacion.index'));
         $('#organizacionesTabla').DataTable({
                     "language":{"url":"//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"},
                     "processing": true,
                     "serverSide": false,
                     "pageLength": 10,
                     "deferRender": true,
-                    "ajax": "catOrganizaciones",
+                    "ajax": '../../../../catOrganizaciones/{!!$idComponente!!}',
                     "columns": [
                         {data: 'id',name: 'id'},
                         {data: 'nombre',name: 'nombre'},
