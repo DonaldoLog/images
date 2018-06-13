@@ -12,13 +12,13 @@ use Alert;
 
 class CatComponenteController extends Controller
 {
-    public function index(){
-
-        return view('componente.index');
+    public function index($idPrograma){
+        $programa=CatPrograma::find($idPrograma);
+        return view('componente.index')->with('idPrograma',$idPrograma)->with('programa',$programa);
     }
 
-    public function catCompontesDataTable(){
-        $data =CatComponente::withCount('organizaciones')->with('programa')->get();
+    public function catCompontesDataTable($idPrograma){
+        $data =CatComponente::where('idPrograma',$idPrograma)->withCount('organizaciones')->with('programa')->get();
         if($data->isNotEmpty()){
             foreach ($data as $d) {
                 $d->idPrograma=$d->programa->nombre;
@@ -35,17 +35,17 @@ class CatComponenteController extends Controller
         //dd($request);
         $componente=new CatComponente();
         $componente->fill($request->all());
-        if ($request->file('imagen')) {
-                   $file = $request->file('imagen');
-                   $name = 'imagen'.$request->nombre.'_'.time().'.'.$file->getClientOriginalExtension();
-                   $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'componenteImagen'.DIRECTORY_SEPARATOR;
-                   $file->move($path, $name);
-                   $componente->imagen=$name;
-        }
+        // if ($request->file('imagen')) {
+        //            $file = $request->file('imagen');
+        //            $name = 'imagen'.$request->nombre.'_'.time().'.'.$file->getClientOriginalExtension();
+        //            $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'componenteImagen'.DIRECTORY_SEPARATOR;
+        //            $file->move($path, $name);
+        //            $componente->imagen=$name;
+        // }
         $componente->idPrograma=$request->idPrograma;
         $componente->save();
         Alert::success('El componente ha sido guardado con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
-        return redirect()->route('componente.index');
+        return redirect()->route('programa.componentes',$request->idPrograma);
     }
     public function edit($id){
         $componente=CatComponente::find($id);
@@ -56,13 +56,13 @@ class CatComponenteController extends Controller
     public function update(Request $request,$id){
         $componente=CatComponente::find($id);
         $componente->fill($request->all());
-        if ($request->file('imagen')) {
-                   $file = $request->file('imagen');
-                   $name = 'imagen'.$request->nombre.'_'.time().'.'.$file->getClientOriginalExtension();
-                   $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'componenteImagen'.DIRECTORY_SEPARATOR;
-                   $file->move($path, $name);
-                   $componente->imagen=$name;
-        }
+        // if ($request->file('imagen')) {
+        //            $file = $request->file('imagen');
+        //            $name = 'imagen'.$request->nombre.'_'.time().'.'.$file->getClientOriginalExtension();
+        //            $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'componenteImagen'.DIRECTORY_SEPARATOR;
+        //            $file->move($path, $name);
+        //            $componente->imagen=$name;
+        // }
         $componente->idPrograma=$request->idPrograma;
         $componente->save();
         Alert::success('El componente ha sido actualizado con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);

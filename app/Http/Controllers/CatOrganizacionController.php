@@ -15,7 +15,8 @@ use Alert;
 class CatOrganizacionController extends Controller
 {
     public function index($idPrograma,$idComponente){
-        return view('organizacion.index')->with('idPrograma',$idPrograma)->with('idComponente',$idComponente);
+        $componente=CatComponente::find($idComponente);
+        return view('organizacion.index')->with('idPrograma',$idPrograma)->with('idComponente',$idComponente)->with('componente',$componente);
     }
 
     public function catOrganizacionesDataTable($idComponente){

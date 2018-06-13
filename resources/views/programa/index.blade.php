@@ -22,7 +22,7 @@
                                 <h3 align="center">{!!$dato->nombre!!}</h3>
                                 <center>
                                     <a href="{{ url('programa') }}/{!!$dato->id!!}/componentes" >
-                                        <img  class="img"src='../public/storage/programasImagenes/{!!$dato->imagen!!}' height="300" width="400">
+                                        <img  class="img"src='../public/storage/programasImagenes/{!!$dato->imagen!!}' height="250" width="350">
                                     </a>
                                 </center>
                             </div>

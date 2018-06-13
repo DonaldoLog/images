@@ -4,7 +4,6 @@
             <thead>
                 <th>ID</th>
                 <th>NOMBRE</th>
-                <th>PROGRAMA AL QUE PERTENECE</th>
                 <th>NO. ORGANIZACIONES</th>
                 <th>ACCION</th>
             </thead>

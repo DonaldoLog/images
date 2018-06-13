@@ -15,7 +15,7 @@ class CatComponente extends Model
         'id',
         'idPrograma',
         'nombre',
-        'imagen'
+        // 'imagen'
     ];
 
     protected $dates = ['deleted_at'];

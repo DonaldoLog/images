@@ -31,9 +31,9 @@ Route::get('/programa/{id}', 'CatProgramaController@show')->name('programa.show'
 Route::get('/programa/{id}/delete', 'CatProgramaController@destroy')->name('programa.destroy');
 
 //-------------------------------------------------------------------------- COMPONENTES --------------------------------------------------------------------------
-Route::get('catCompontes', 'CatComponenteController@catCompontesDataTable');
+Route::get('catCompontes/{idPrograma}', 'CatComponenteController@catCompontesDataTable')->name('catCompontes.dataTable');
 Route::get('/componentes', 'CatComponenteController@index')->name('componente.index');
-Route::get('/programa/{idPrograma}/componentes', 'CatComponenteController@componentes')->name('programa.componentes');
+Route::get('/programa/{idPrograma}/componentes', 'CatComponenteController@index')->name('programa.componentes');
 Route::get('/componente/create', 'CatComponenteController@create')->name('componente.create');
 Route::get('/programa/{idPrograma}/componente/create', 'CatComponenteController@createComponente')->name('programa.create.componente');
 Route::post('/componente/store', 'CatComponenteController@store')->name('componente.store');

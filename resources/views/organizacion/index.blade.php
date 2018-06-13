@@ -5,7 +5,7 @@
         <div class="box">
             <!--box-header -->
             <div class="box-header with-border">
-                <h3 class="box-title">ORGANIZACIONES</h3>
+                <h3 class="box-title">{!!$componente->nombre!!}</h3>
             </div>
 
             <!--box-body -->

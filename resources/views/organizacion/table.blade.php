@@ -4,7 +4,6 @@
             <thead>
                 <th>ID</th>
                 <th>NOMBRE</th>
-                <th>COMPONENTE AL QUE PERTENECE</th>
                 <th>ACCION</th>
             </thead>
         </table>
