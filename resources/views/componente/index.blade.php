@@ -1,11 +1,11 @@
 @extends('adminlte::page') @section('title', 'SAGARPA') @section('content_header')
-<h1>INICIO</h1> @stop @section('content')
+<h1>{!!$programa->nombre!!}</h1> @stop @section('content')
 <div class="row">
     <div class="col-md-12">
         <div class="box">
             <!--box-header -->
             <div class="box-header with-border">
-                <h3 class="box-title">{!!$programa->nombre!!}</h3>
+                <h3 class="box-title">COMPONENTES</h3>
             </div>
 
             <!--box-body -->

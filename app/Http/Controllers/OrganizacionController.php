@@ -17,7 +17,8 @@ class OrganizacionController extends Controller
         $nombreEmpresa=CatOrganizacion::find($request->idEmpresa)->select('nombre')->get()->first();
 
         if($request->idFile!="" || $request->idFile!=null){
-            $archivo=Documento::find($request->id);
+            // dd($request);
+            $archivo=Documento::find($request->idFile);
             $archivo->nombre=$request->nombreArhivo;
             if ($request->file('file')) {
                     $file = $request->file('file');
@@ -45,7 +46,7 @@ class OrganizacionController extends Controller
             }
             $archivo->save();
         }
-        return redirect()->route('organizacion.edit',$request->idEmpresa);
+        return redirect()->route('organizacion.edit',[$request->idPrograma,$request->idComponente,$request->idEmpresa]);
 
     }
 

@@ -1,11 +1,11 @@
 @extends('adminlte::page') @section('title', 'SAGARPA') @section('content_header')
-<h1>AGREGAR ORGANIZACION</h1> @stop @section('content')
+<h1>AGREGAR ARCHIVO</h1> @stop @section('content')
 <div class="row">
     <div class="col-md-12">
         <div class="box">
             <!--box-header -->
             <div class="box-header with-border">
-                <h3 class="box-title">ORGANIZACION</h3>
+                <h3 class="box-title">{!!$organizacion->nombre!!}</h3>
 
             </div>
 
@@ -43,7 +43,7 @@
                                             <td>
                                                 <button type="button" value='{!!$documento->id!!}'  data-toggle="modal" data-target="#myModal" class="btn btn-info ver">VER</button>
                                                 <button type="button" value='{!!$documento->id!!}'  data-toggle="modal" data-target="#myModal" class="btn btn-warning editar">EDITAR</button>
-                                                <a  href="../../storage/archivos/{!!$documento->archivo!!}" download class="btn btn-success">DESCARGAR</a>
+                                                <a  href="{{ asset('storage/archivos/'.$documento->archivo) }}" download class="btn btn-success">DESCARGAR</a>
                                                 <button type="button" name='{!!$documento->nombre!!}' value='{!!$documento->id!!}' class="btn btn-danger eliminar">ELIMINAR</button>
                                             </td>
                                         </tr>
@@ -87,6 +87,8 @@
               {!! Form::text('nombreArhivo', null, ['class' => 'form-control mayus','required','id'=>'nombreArhivo']) !!}
               {!! Form::hidden('idFile', '') !!}
               {!! Form::hidden('idEmpresa', $organizacion->id) !!}
+              {!! Form::hidden('idComponente', $idComponente) !!}
+              {!! Form::hidden('idPrograma', $idPrograma) !!}
               {!! Form::label('file', 'ARCHIVO:') !!}
               <input type="file"  class="archivo" id="file" name="file">
       </div>
@@ -161,15 +163,15 @@
                 language: 'es',
                 theme: 'fa',
                 allowedFileExtensions: ['jpg', 'jpeg', 'png', 'pdf'],
-                overwriteInitial: false,
+                overwriteInitial: true,
                 showUpload: false,
                 showRemove: false,
                 initialPreviewConfig: [
-                    {downloadUrl:("../../storage/archivos/" + res[0]['archivo']),key: res[0]['archivo']},
+                    {downloadUrl:("{{ asset('storage/archivos/') }}"+ "/"+res[0]['archivo']),key: res[0]['archivo']},
                 ],
                 initialPreviewAsData: true,
                 initialPreview: [
-                    "../../storage/archivos/" + res[0]['archivo']
+                        "{{ asset('storage/archivos/') }}"+ "/"+res[0]['archivo']
                 ]
             });
 
@@ -200,11 +202,12 @@
                 showCaption: false,
                 layoutTemplates: {main2: '{preview}{remove}'},
                 initialPreviewConfig: [
-                    {downloadUrl:("../../storage/archivos/" + res[0]['archivo']),key: res[0]['archivo']},
+                    {downloadUrl:("{{ asset('storage/archivos') }}"+ "/"+res[0]['archivo']),key: res[0]['archivo']},
                 ],
                 initialPreviewAsData: true,
                 initialPreview: [
-                    "../../storage/archivos/" + res[0]['archivo']
+                    "{{ asset('storage/archivos') }}"+  "/"+res[0]['archivo']
+
                 ]
             });
             $('.kv-file-remove').hide();

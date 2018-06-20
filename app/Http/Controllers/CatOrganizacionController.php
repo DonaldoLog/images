@@ -25,15 +25,18 @@ class CatOrganizacionController extends Controller
                 ->select('cat_organizacion.id','cat_organizacion.nombre','cat_componente.nombre as componente')
                 ->whereNull('cat_organizacion.deleted_at')
                 ->whereNull('cat_componente.deleted_at')
-                ->whereNull('cat_organizacion.deleted_at')
+                // ->whereNull('cat_organizacion.deleted_at')
                 ->where('cat_organizacion.idComponente',$idComponente)
                ->get();
         //$data=CatComponente::orderBy('id','ASC')->get();
         return Datatables::of($data)->make(true);
     }
-    public function create(){
-        $componentes=CatComponente::all()->pluck('nombre','id');
-        return view('organizacion.create')->with('componentes',$componentes);
+    public function create($idPrograma,$idComponente){
+        $componente=CatComponente::where('id',$idComponente)->first();
+        return view('organizacion.create')
+        ->with('componente',$componente)
+        ->with('idPrograma',$idPrograma)
+        ->with('idComponente', $idComponente);
     }
     public function store(Request $request){
         //dd($request);
@@ -42,15 +45,18 @@ class CatOrganizacionController extends Controller
         $organizacion->idComponente=$request->idComponente;
         $organizacion->save();
         Alert::success('La organizacion ha sido guardado con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
-        return redirect()->route('organizacion.index');
+        return redirect()->route('componente.index.programa',[$request->idPrograma,$request->idComponente]);
     }
-    public function edit($id){
-        $organizacion=Catorganizacion::find($id);
-        $componentes=CatComponente::orderBy('nombre', 'asc')->pluck('nombre','id');
-        $documentos=Documento::where('idEmpresa','=',$id)->get();
-
-
-        return view('organizacion.edit')->with('organizacion',$organizacion)->with('componentes',$componentes)->with('documentos',$documentos);
+    public function edit($idPrograma,$idComponente,$idOrganizacion){
+        $organizacion=Catorganizacion::find($idOrganizacion);
+        $documentos=Documento::where('idEmpresa','=',$idOrganizacion)->get();
+        $componente=CatComponente::where('id',$idComponente)->first();
+        return view('organizacion.edit')
+        ->with('organizacion',$organizacion)
+        ->with('componente',$componente)
+        ->with('documentos',$documentos)
+        ->with('idPrograma',$idPrograma)
+        ->with('idComponente',$idComponente);
     }
     public function update(Request $request,$id){
         $organizacion=Catorganizacion::find($id);
@@ -58,7 +64,7 @@ class CatOrganizacionController extends Controller
         $organizacion->idComponente=$request->idComponente;
         $organizacion->save();
         Alert::success('La organizacion ha sido actualizado con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
-        return redirect()->route('organizacion.index');
+        return redirect()->route('componente.index.programa',[$request->idPrograma,$request->idComponente]);
     }
     public function show(){
         return view('organizacion.index');

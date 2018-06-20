@@ -46,9 +46,9 @@ Route::get('/componente/{id}/delete', 'CatComponenteController@destroy')->name('
 Route::get('catOrganizaciones/{idComponente}', 'CatOrganizacionController@catOrganizacionesDataTable')->name('catOrganizaciones');
 Route::get('/organizaciones', 'CatOrganizacionController@index')->name('organizacion.index');
 Route::get('/programa/{idPrograma}/componente/{idComponente}/organizaciones', 'CatOrganizacionController@index')->name('componente.index.programa');
-Route::get('/organizacion/create', 'CatOrganizacionController@create')->name('organizacion.create');
+Route::get('/programa/{idPrograma}/componente/{idComponente}/organizacion/create', 'CatOrganizacionController@create')->name('organizacion.create');
 Route::post('/organizacion/store', 'CatOrganizacionController@store')->name('organizacion.store');
-Route::get('/organizacion/{id}/edit', 'CatOrganizacionController@edit')->name('organizacion.edit');
+Route::get('/programa/{idPrograma}/componente/{idComponente}/organizacion/{idOrganizacion}/edit', 'CatOrganizacionController@edit')->name('organizacion.edit');
 Route::put('/organizacion/{id}', 'CatOrganizacionController@update')->name('organizacion.update');
 Route::get('/organizacion/{id}', 'CatOrganizacionController@show')->name('organizacion.show');
 Route::get('/organizacion/{id}/delete', 'CatOrganizacionController@destroy')->name('organizacion.destroy');

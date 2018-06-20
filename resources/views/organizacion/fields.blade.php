@@ -4,8 +4,10 @@
 </div>
 
 <div class="form-group col-sm-6">
-    {!! Form::label('idComponente', 'Componente:') !!}
-    {!!Form::select('idComponente',$componentes,null, ['class'=>'form-control mayus','placeholder' => 'Selecciona un componente','required'])!!}
+    {!! Form::label('componente', 'Componente:') !!}
+    {!!Form::label('componente',$componente->nombre, ['class'=>'form-control'])!!}
+    {!!Form::hidden('idComponente',$idComponente)!!}
+    {!!Form::hidden('idPrograma',$idPrograma)!!}
 </div>
 
 
