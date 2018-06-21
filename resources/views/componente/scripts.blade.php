@@ -16,7 +16,7 @@
                         {data: 'organizaciones_count',name: 'organizaciones_count'},
                         {data: null,"orderable": false,
                             render: function(data, type, row) {
-                                return "<center><a href='"+route('componente.index.programa',[idPrograma,data.id])+"'class='btn btn-default'><i class='fa fa-pencil' aria-hidden='true'></i> Ver</a><a href='{{ url('componente') }}/" + data.id + "/edit' class='btn btn-default'><i class='fa fa-pencil' aria-hidden='true'></i> Editar</a><button id='borrar' name='" + data.nombre + "' value='" + data.id +"' class='btn btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> Eliminar</button></center>"
+                                return "<center><a href='"+route('componente.index.programa',[idPrograma,data.id])+"'class='btn btn-default'><i class='fa fa-pencil' aria-hidden='true'></i> Administrar</a><a href='{{ url('componente') }}/" + data.id + "/edit' class='btn btn-default'><i class='fa fa-pencil' aria-hidden='true'></i> Editar</a><button id='borrar' name='" + data.nombre + "' value='" + data.id +"' class='btn btn-danger'><i class='fa fa-trash-o' aria-hidden='true'></i> Eliminar</button></center>"
                             }
                         }
                     ]

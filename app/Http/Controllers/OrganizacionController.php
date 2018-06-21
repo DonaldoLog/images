@@ -9,6 +9,7 @@ use App\Models\CatPrograma;
 use App\Models\Documento;
 use DB;
 use Alert;
+use ZipArchive;
 
 
 class OrganizacionController extends Controller
@@ -59,6 +60,27 @@ class OrganizacionController extends Controller
         $file=Documento::find($id);
         $file->delete();
         return ['success'=>true];
+    }
+
+    public function zipAll($idOrganizacion)
+    {
+        // $files = array('readme.txt', 'test.html', 'image.gif');
+        $files=Documento::Where('idEmpresa','=',$idOrganizacion)->pluck('archivo');
+        $organizacion=CatOrganizacion::find($idOrganizacion);
+        $zipname = $organizacion->nombre.'.zip';
+        $zip = new ZipArchive;
+        $zip->open($zipname, ZipArchive::CREATE);
+        foreach ($files as $file) {
+            $ruta=public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'archivos'.DIRECTORY_SEPARATOR.$file;
+            $zip->addFile($ruta);
+            dump($ruta);
+        }
+        $zip->close();
+        dd($zip,$zipname);
+        header('Content-Type: application/zip');
+        header('Content-disposition: attachment; filename=filename.zip');
+        header('Content-Length: ' . filesize($zipname));
+        readfile($zipname);
     }
 
 }

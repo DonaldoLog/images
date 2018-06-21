@@ -64,7 +64,7 @@
             <!--box-footer -->
             <div class="box-footer">
                 <div class="row">
-
+                    <a href="{!!route('zip',$organizacion->id)!!}">DESCARGAR TODO</a>
                 </div>
             </div>
         </div>

@@ -84,8 +84,8 @@ class CatComponenteController extends Controller
         return view('componente.indexComponentes')->with('componentes',$componentes)->with('idPrograma',$idPrograma);
     }
     public function createComponente($idPrograma){
-        $programas=CatPrograma::where('id',$idPrograma)->pluck('nombre','id');
-        return view('componente.createComponente')->with('programas',$programas);
+        $programa=CatPrograma::where('id',$idPrograma)->first();
+        return view('componente.createComponente')->with('programa',$programa);
     }
 
 }

@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<img src="http://127.0.0.1/docsSagarpa/public/images/logo.png" width="130" height="40" alt="">',
+    'logo' => '<img src="http://127.0.0.1/images/public/images/logo.png" width="130" height="40" alt="">',
 
-    'logo_mini' => '<img src="http://127.0.0.1/docsSagarpa/public/images/logoMx.png" width="" height="40" alt="">',
+    'logo_mini' => '<img src="http://127.0.0.1/images/public/images/logoMx.png" width="" height="40" alt="">',
 
     /*
     |--------------------------------------------------------------------------
@@ -110,14 +110,9 @@ return [
     'menu' => [
         'Menu',
         [
-            'text' => 'Blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
-        [
-                'text'        => 'USUARIOS',
-                'url'         => 'users',
-                'icon'        => 'user',
+            'text'        => 'USUARIOS',
+            'url'         => 'users',
+            'icon'        => 'user',
         ],
         [
             'text'        => 'PROGRAMAS',
@@ -125,15 +120,20 @@ return [
             'icon'        => 'folder',
         ],
         [
-            'text' => 'COMPONENTES',
-            'url'  => 'componentes',
-            'icon' => 'tag',
+            'text'        => 'UDITORIAS',
+            'url'         => 'auditorias',
+            'icon'        => 'folder',
         ],
-        [
-            'text' => 'ORGANIZACIONES',
-            'url'  => 'organizaciones',
-            'icon' => 'building',
-        ],
+        // [
+        //     'text' => 'COMPONENTES',
+        //     'url'  => 'componentes',
+        //     'icon' => 'tag',
+        // ],
+        // [
+        //     'text' => 'ORGANIZACIONES',
+        //     'url'  => 'organizaciones',
+        //     'icon' => 'building',
+        // ],
     ],
 
     /*

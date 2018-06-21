@@ -18,7 +18,7 @@ Route::get('/', 'Auth\LoginController@showLoginForm');
 
 Auth::routes();
 
-Route::get('/home','HomeController@index')->name('home');
+Route::get('/home','CatProgramaController@index')->name('home');
 
 //-------------------------------------------------------------------------- PROGRAMAS --------------------------------------------------------------------------
 Route::get('catProgramas', 'CatProgramaController@catProgramasDataTable');
@@ -59,3 +59,4 @@ Route::post('documento', 'OrganizacionController@guardarArchivo')->name('save.fi
 Route::post('documento/editar/', 'OrganizacionController@editarArchivo')->name('edit.file');
 Route::get('documento/{id}', 'OrganizacionController@getArchivo')->name('file.get');
 Route::post('documento/{id}/delete', 'OrganizacionController@docDestroy')->name('doc.destroy');
+Route::get('documentos/{idOrganizacion}', 'OrganizacionController@zipAll')->name('zip');
