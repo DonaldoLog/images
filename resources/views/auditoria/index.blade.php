@@ -16,7 +16,7 @@
                             {{-- <a type="button" href="{{route('organizacion.create',[$idPrograma,$idComponente])}}" class="btn btn-default">AGREGAR ORGANIZACION</a> --}}
                         </div>
                     </div>
-                    {{-- @include('organizacion.table') --}}
+                    @include('auditoria.table')
                 </div>
             </div>
             <!--box-footer -->
@@ -29,4 +29,4 @@
     </div>
 </div>
 @stop
-{{-- @include('organizacion.scripts') --}}
+@include('auditoria.scripts')

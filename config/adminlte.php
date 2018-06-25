@@ -121,7 +121,7 @@ return [
         ],
         [
             'text'        => 'AUDITORIAS',
-            'url'         => 'auditorias',
+            'url'         => 'auditoria',
             'icon'        => 'folder',
         ],
         // [
