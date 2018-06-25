@@ -63,8 +63,8 @@
             </div>
             <!--box-footer -->
             <div class="box-footer">
-                <div class="row">
-                    <a href="{!!route('zip',$organizacion->id)!!}">DESCARGAR TODO</a>
+                <div class="col">
+                    <a class="btn btn-default" href="{!!route('zip',$organizacion->id)!!}"> DESCARGAR TODO</a>
                 </div>
             </div>
         </div>
@@ -226,7 +226,7 @@
               showPreview: true,
               showRemove: false,
               showUpload:false,
-              allowedFileExtensions: ['jpg', 'jpeg', 'png','xdoc','ppt']
+              allowedFileExtensions: ['jpg', 'jpeg', 'png','xdoc','ppt','pdf']
           });
     });
 

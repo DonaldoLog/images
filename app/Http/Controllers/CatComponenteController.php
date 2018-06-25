@@ -49,9 +49,8 @@ class CatComponenteController extends Controller
     }
     public function edit($id){
         $componente=CatComponente::find($id);
-        $programas=CatPrograma::orderBy('nombre', 'asc')->pluck('nombre','id');
-
-        return view('componente.edit')->with('componente',$componente)->with('programas',$programas);
+        $programa=CatPrograma::find($componente->idPrograma);
+        return view('componente.edit')->with('componente',$componente)->with('programa',$programa);
     }
     public function update(Request $request,$id){
         $componente=CatComponente::find($id);
@@ -66,17 +65,19 @@ class CatComponenteController extends Controller
         $componente->idPrograma=$request->idPrograma;
         $componente->save();
         Alert::success('El componente ha sido actualizado con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
-        return redirect()->route('componente.index');
+        return redirect()->route('programa.componentes',$componente->idPrograma);
+
     }
     public function show(){
         return view('programa.index');
     }
     public function destroy($id){
         $componente = CatComponente::find($id);
+        $idPrograma=$componente->idPrograma;
         $organizaciones=$componente->organizaciones()->delete();
         $componente->delete();
-        Alert::success('El programa ha sido eliminada con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
-        return redirect()->route('componente.index');
+        Alert::success('El componente ha sido eliminado con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
+        return redirect()->route('programa.componentes',$idPrograma);
     }
 
     public function componentes($idPrograma){

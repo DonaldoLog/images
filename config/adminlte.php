@@ -120,7 +120,7 @@ return [
             'icon'        => 'folder',
         ],
         [
-            'text'        => 'UDITORIAS',
+            'text'        => 'AUDITORIAS',
             'url'         => 'auditorias',
             'icon'        => 'folder',
         ],
