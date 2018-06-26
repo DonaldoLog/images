@@ -63,4 +63,5 @@ Route::get('documentos/{idOrganizacion}', 'OrganizacionController@zipAll')->name
 
 //------------------------------------------------------------------ AUDITORIAS ---------------------------------------------------------------------------------
 Route::get('/auditoria', 'AuditoriaController@index')->name('auditoria.index');
+Route::get('/auditoria/{idComponente}', 'AuditoriaController@carpetas')->name('carpetas.componte');
 Route::get('auditoria/catCompontes', 'AuditoriaController@catCompontesDataTable')->name('componetes.auditoria.dataTable');

@@ -17,4 +17,9 @@ class AuditoriaController extends Controller
         $componentes=CatComponente::orderBy('nombre','asc')->get();
         return Datatables::of($componentes)->make(true);
     }
+
+    public function carpetas()
+    {
+        
+    }
 }
