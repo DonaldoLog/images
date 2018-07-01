@@ -19,6 +19,8 @@ class CreateDocumentosAuditoriaTable extends Migration
             $table->string('documento');
             $table->string('nombre');
             $table->timestamps();
+            $table->softDeletes();
+            
         });
     }
 

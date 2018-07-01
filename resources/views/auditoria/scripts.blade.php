@@ -13,7 +13,7 @@
                         {data: 'nombre',name: 'nombre'},
                         {data: null,"orderable": false,
                             render: function(data) {
-                                return "<center><a href='' class='btn btn-default'><i class='fa fa-pencil' aria-hidden='true'></i> Administrar</a></center>"
+                                return "<center><a href='"+route('auditoria.componente',data.id)+"' class='btn btn-default'><i class='fa fa-pencil' aria-hidden='true'></i> Administrar</a></center>"
                             }
                         }
                     ]
@@ -40,9 +40,6 @@
 
             });
         });
-
-
-
     });
     </script>
 

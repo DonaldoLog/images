@@ -18,6 +18,8 @@ class CreateAuditoriasTable extends Migration
             $table->integer('idCatComponente');
             $table->string('nombre');
             $table->timestamps();
+            $table->softDeletes();
+            
         });
     }
 
