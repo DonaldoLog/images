@@ -7,6 +7,7 @@ use App\Models\CatComponente;
 use Yajra\DataTables\Datatables;
 use App\Models\Auditoria;
 use App\Models\DocAuditoria;
+use App\Models\CatPrograma;
 use DB;
 
 class AuditoriaController extends Controller
@@ -38,24 +39,37 @@ class AuditoriaController extends Controller
     }
 
     public function verCarpeta($idAuditoria){
+        // dd($idAuditoria);
         $documentos=DocAuditoria::where('idAuditoria',$idAuditoria)->get();
         $auditoria=Auditoria::find($idAuditoria);
+        $componente=CatComponente::find($auditoria->idCatComponente);
+        $programa=CatPrograma::find($componente->idPrograma);
+        // dd($programa)
         return  view('auditoria.componente.carpeta.index')
             ->with('documentos',$documentos)
-            ->with('auditoria',$auditoria);
+            ->with('auditoria',$auditoria)
+            ->with('componente',$componente)
+            ->with('programa',$programa);
+    }
+
+    public function updateCarpeta(Request $request){
+        $auditoria=Auditoria::find($idAuditoria);
+        $auditoria->nombre=$request->nombre;
+
+        return redirect()->route('auditoria.componente',[$auditoria->id]);
     }
 
     public function guardarArchivo(Request $request){
         $auditoria=Auditoria::find($request->idAuditora);
-        $nombreComponente=CatOrganizacion::find($auditoria->idCatComponente)->select('nombre')->get()->first();
+        $nombreComponente=CatComponente::find($auditoria->idCatComponente)->select('nombre')->get()->first();
 
         if($request->idFile!="" || $request->idFile!=null){
             // dd($request);
             $archivo=DocAuditoria::find($request->idFile);
-            $archivo->nombre=$request->nombreArhivo;
+            $archivo->nombre=$request->nombre;
             if ($request->file('file')) {
                     $file = $request->file('file');
-                    $name = $nombreComponente->nombre."_".$request->nombreArhivo.'_'.time().'.'.$file->getClientOriginalExtension();
+                    $name = $nombreComponente->nombre."_".$request->nombre.'_'.time().'.'.$file->getClientOriginalExtension();
                     $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'auditoria'.DIRECTORY_SEPARATOR.'archivos'.DIRECTORY_SEPARATOR;
                     $file->move($path, $name);
                     $archivo->archivo=$name;
@@ -67,10 +81,10 @@ class AuditoriaController extends Controller
         }else {
             $archivo= new DocAuditoria();
             $archivo->idEmpresa=$request->idEmpresa;
-            $archivo->nombre=$request->nombreArhivo;
+            $archivo->nombre=$request->nombre;
             if ($request->file('file')) {
                 $file = $request->file('file');
-                $name = $nombreComponente->nombre."_".$request->nombreArhivo.'_'.time().'.'.$file->getClientOriginalExtension();
+                $name = $nombreComponente->nombre."_".$request->nombre.'_'.time().'.'.$file->getClientOriginalExtension();
                 $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'auditoria'.DIRECTORY_SEPARATOR.'archivos'.DIRECTORY_SEPARATOR;
                 $file->move($path, $name);
                 $archivo->archivo=$name;

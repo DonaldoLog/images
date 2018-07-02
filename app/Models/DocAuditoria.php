@@ -9,11 +9,12 @@ class DocAuditoria extends Model
 {
     use SoftDeletes;
 
-   public $table='auditoria';
+   public $table='documento_auditoria';
 
    public $fillable=[
        'id',
-       'idCatComponente',
+       'idAuditoria',
+       'documento',
        'nombre',
    ];
 

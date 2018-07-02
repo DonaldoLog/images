@@ -76,7 +76,7 @@
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">CREAR</button>
         {!!Form::close()!!}
-        
+
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

@@ -66,4 +66,12 @@ Route::get('/auditoria', 'AuditoriaController@index')->name('auditoria.index');
 Route::get('/auditoria/{idComponente}', 'AuditoriaController@carpetas')->name('carpetas.componte');
 Route::get('/auditoria/cat-compontes/lista', 'AuditoriaController@componetesDatatable')->name('componetes.auditoria.dataTable');
 Route::get('/auditoria/componente/{idCatComponente}', 'AuditoriaController@carpetas')->name('auditoria.componente');
+Route::get('/auditoria/componente/auditoria/{idAuditora}', 'AuditoriaController@verCarpeta')->name('ver.auditoria.componente');
 Route::post('/auditoria/nueva-carpeta/store', 'AuditoriaController@createCarpeta')->name('nueva.carpeta');
+Route::post('/auditoria/{idAuditora}/update', 'AuditoriaController@updateCarpeta')->name('auditoria.update');
+
+Route::post('auditoria/documento/save', 'AuditoriaController@guardarArchivo')->name('auditoria.save.file');
+Route::post('auditoria/documento/editar/', 'AuditoriaController@editarArchivo')->name('auditoria.edit.file');
+Route::get('auditoria/documento/{id}', 'AuditoriaController@getArchivo')->name('auditoria.file.get');
+Route::post('auditoria/documento/{id}/delete', 'AuditoriaController@docDestroy')->name('auditoria.doc.destroy');
+Route::get('auditoria/documentos/{idOrganizacion}', 'AuditoriaController@zipAll')->name('auditoria.zip');

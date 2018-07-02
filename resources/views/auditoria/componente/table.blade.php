@@ -18,7 +18,7 @@
                     <tr>
                         <td>{!!$carpeta->id!!}</td>
                         <td>{!!$carpeta->nombre!!}</td>
-                        <td> <a class="btn btn-info" href="#">ADMINISTRAR</a> </td>
+                        <td> <a class="btn btn-info" href="{!!route('ver.auditoria.componente',$carpeta->id)!!}">ADMINISTRARr</a> </td>
                     </tr>
                 @endforeach
             </tbody>

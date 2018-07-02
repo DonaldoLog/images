@@ -1,5 +1,5 @@
 @extends('adminlte::page') @section('title', 'SAGARPA') @section('content_header')
-<h1>AGREGAR ARCHIVO</h1> @stop @section('content')
+<h1>{!!$programa->nombre."-".$componente->nombre!!}</h1> @stop @section('content')
 <div class="row">
     <div class="col-md-12">
         <div class="box">
