@@ -8,6 +8,7 @@ use Yajra\DataTables\Datatables;
 use App\Models\Auditoria;
 use App\Models\DocAuditoria;
 use App\Models\CatPrograma;
+use ZipArchive;
 use DB;
 
 class AuditoriaController extends Controller
@@ -60,8 +61,9 @@ class AuditoriaController extends Controller
     }
 
     public function guardarArchivo(Request $request){
-        $auditoria=Auditoria::find($request->idAuditora);
-        $nombreComponente=CatComponente::find($auditoria->idCatComponente)->select('nombre')->get()->first();
+        $auditoria=Auditoria::find($request->idAuditoria);
+        // dd($auditoria,$request);
+        $nombreComponente=CatComponente::find($auditoria->idCatComponente)->select('nombre')->first();
 
         if($request->idFile!="" || $request->idFile!=null){
             // dd($request);
@@ -69,31 +71,32 @@ class AuditoriaController extends Controller
             $archivo->nombre=$request->nombre;
             if ($request->file('file')) {
                     $file = $request->file('file');
-                    $name = $nombreComponente->nombre."_".$request->nombre.'_'.time().'.'.$file->getClientOriginalExtension();
+                    $name = $nombreComponente->nombre."_".$auditoria->nombre."_".$request->nombre.'_'.time().'.'.$file->getClientOriginalExtension();
                     $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'auditoria'.DIRECTORY_SEPARATOR.'archivos'.DIRECTORY_SEPARATOR;
                     $file->move($path, $name);
-                    $archivo->archivo=$name;
+                    $archivo->documento=$name;
                 }else {
-                    $archivo->archivo=null;
+                    $archivo->documento=null;
                 }
             $archivo->save();
 
         }else {
             $archivo= new DocAuditoria();
-            $archivo->idEmpresa=$request->idEmpresa;
+            $archivo->idAuditoria=$request->idAuditoria;
             $archivo->nombre=$request->nombre;
             if ($request->file('file')) {
                 $file = $request->file('file');
-                $name = $nombreComponente->nombre."_".$request->nombre.'_'.time().'.'.$file->getClientOriginalExtension();
+                $name = $nombreComponente->nombre."_".$auditoria->nombre."_".$request->nombre.'_'.time().'.'.$file->getClientOriginalExtension();
                 $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'auditoria'.DIRECTORY_SEPARATOR.'archivos'.DIRECTORY_SEPARATOR;
                 $file->move($path, $name);
-                $archivo->archivo=$name;
+                $archivo->documento=$name;
             }else {
-                $archivo->archivo=null;
+                $archivo->documento=null;
             }
             $archivo->save();
         }
-        return redirect()->route('organizacion.edit',[$request->idPrograma,$request->idComponente,$request->idEmpresa]);
+        return redirect()->route('ver.auditoria.componente',[$request->idAuditoria]);
+
 
     }
 
@@ -108,25 +111,27 @@ class AuditoriaController extends Controller
         return ['success'=>true];
     }
 
-    public function zipAll($idCatComponente)
+    public function zipAll($idAuditoria)
     {
         // $files = array('readme.txt', 'test.html', 'image.gif');
-        $files=DocAuditoria::Where('idAuditora','=',$idAuditoria)->pluck('archivo');
-        $componente=CatComponente::join('auditoria','auditoria.idCatComponente','cat_componente.id')
-            ->select('cat_componente.*')
-            ->get();
-        $zipname = $componente->nombre.'.zip';
+        $files=DocAuditoria::Where('idAuditoria','=',$idAuditoria)->pluck('documento');
+        $auditoria=CatComponente::join('auditoria','auditoria.idCatComponente','cat_componente.id')
+            ->select('cat_componente.nombre as componente','auditoria.nombre as auditoria')
+            ->where('auditoria.id',$idAuditoria)
+            ->first();
+            // dd($auditoria);
+        $zipname = $auditoria->componente."_".$auditoria->auditoria."_".time().'.zip';
         $zip = new ZipArchive;
+        // $zipname = time().".zip";
         $zip->open($zipname, ZipArchive::CREATE);
         foreach ($files as $file) {
-            $ruta=public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'auditoria'.DIRECTORY_SEPARATOR.'archivos'.DIRECTORY_SEPARATOR.$file;
-            $zip->addFile($ruta);
-            dump($ruta);
+            $path=public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'auditoria'.DIRECTORY_SEPARATOR.'archivos'.DIRECTORY_SEPARATOR.$file;
+            $zip->addFromString(basename($file),  file_get_contents($path));
         }
         $zip->close();
-        dd($zip,$zipname);
+        // dd($zip,$zipname);
         header('Content-Type: application/zip');
-        header('Content-disposition: attachment; filename=filename.zip');
+        header('Content-disposition: attachment; filename='.$zipname);
         header('Content-Length: ' . filesize($zipname));
         readfile($zipname);
     }

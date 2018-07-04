@@ -73,12 +73,12 @@ class OrganizacionController extends Controller
         foreach ($files as $file) {
             $ruta=public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'archivos'.DIRECTORY_SEPARATOR.$file;
             $zip->addFile($ruta);
-            dump($ruta);
+            // dump($ruta);
         }
         $zip->close();
-        dd($zip,$zipname);
+        // dd($zip,$zipname);
         header('Content-Type: application/zip');
-        header('Content-disposition: attachment; filename=filename.zip');
+        header('Content-disposition: attachment; filename='.$zipname);
         header('Content-Length: ' . filesize($zipname));
         readfile($zipname);
     }

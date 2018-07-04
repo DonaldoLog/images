@@ -64,7 +64,7 @@
             <!--box-footer -->
             <div class="box-footer">
                 <div class="col">
-                    {{-- <a class="btn btn-default" href="{!!route('zip',$organizacion->id)!!}"> DESCARGAR TODO</a> --}}
+                    <a class="btn btn-default" href="{!!route('auditoria.zip',$auditoria->id)!!}"> DESCARGAR TODO</a>
                 </div>
             </div>
         </div>
@@ -82,11 +82,11 @@
         <h4 class="modal-title" id="myModalLabel">AGREGAR ARCHIVO</h4>
       </div>
       <div class="modal-body">
-          {!!Form::open(['route'=>'save.file','enctype'=>'multipart/form-data'])!!}
+          {!!Form::open(['route'=>'auditoria.save.file','enctype'=>'multipart/form-data'])!!}
               {!! Form::label('nombre', 'NOMBRE:') !!}
               {!! Form::text('nombre', null, ['class' => 'form-control mayus','required','id'=>'nombre']) !!}
               {!! Form::hidden('idFile', '') !!}
-              {!! Form::hidden('idAuditora', $auditoria->id) !!}
+              {!! Form::hidden('idAuditoria', $auditoria->id) !!}
               {{-- {!! Form::hidden('idComponente', $idComponente) !!} --}}
               {{-- {!! Form::hidden('idPrograma', $idPrograma) !!} --}}
               {!! Form::label('file', 'ARCHIVO:') !!}
@@ -129,7 +129,7 @@
             if (isConfirm) {
                 $.ajax({
                   type: "POST",
-                  url: route('doc.destroy',numero),
+                  url: route('auditoria.doc.destroy',numero),
                   success: function (response) {
                       if(response.success){
                            row.closest('tr').remove()
@@ -154,7 +154,7 @@
         $( "input[name='idFile']" ).val(id);
         $("#cancelarModal").html('Cancelar');
 
-        $.get(route('file.get',id), function(res) {
+        $.get(route('auditoria.file.get',id), function(res) {
             console.log(res[0]['nombre']);
             $('#nombre').val(res[0]['nombre']);
             ///-------
@@ -167,11 +167,11 @@
                 showUpload: false,
                 showRemove: false,
                 initialPreviewConfig: [
-                    {downloadUrl:("{{ asset('storage/auditoria/archivos/') }}"+ "/"+res[0]['archivo']),key: res[0]['archivo']},
+                    {downloadUrl:("{{ asset('storage/auditoria/archivos/') }}"+ "/"+res[0]['documento']),key: res[0]['documento']},
                 ],
                 initialPreviewAsData: true,
                 initialPreview: [
-                        "{{ asset('storage/auditoria/archivos/') }}"+ "/"+res[0]['archivo']
+                        "{{ asset('storage/auditoria/archivos/') }}"+ "/"+res[0]['documento']
                 ]
             });
 
@@ -183,13 +183,13 @@
     });
 
     $('#archivosAudioria').on('click', '.ver', function(){
-
+        console.log('hola');
         $('#nombre').prop('readonly', true);
         $('#file').hide();
         $('#submitModal').hide();
          $("#cancelarModal").html('Atras');
         var id=this.value;
-        $.get(route('file.get',id), function(res) {
+        $.get(route('auditoria.file.get',id), function(res) {
             console.log(res[0]['nombre']);
             $('#nombre').val(res[0]['nombre']);
             ///-------
@@ -202,11 +202,11 @@
                 showCaption: false,
                 layoutTemplates: {main2: '{preview}{remove}'},
                 initialPreviewConfig: [
-                    {downloadUrl:("{{ asset('storage/auditoria/archivos') }}"+ "/"+res[0]['archivo']),key: res[0]['archivo']},
+                    {downloadUrl:("{{ asset('storage/auditoria/archivos') }}"+ "/"+res[0]['documento']),key: res[0]['documento']},
                 ],
                 initialPreviewAsData: true,
                 initialPreview: [
-                    "{{ asset('storage/auditoria/archivos') }}"+  "/"+res[0]['archivo']
+                    "{{ asset('storage/auditoria/archivos') }}"+  "/"+res[0]['documento']
 
                 ]
             });
