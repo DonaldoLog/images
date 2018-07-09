@@ -75,3 +75,10 @@ Route::post('auditoria/documento/editar/', 'AuditoriaController@editarArchivo')-
 Route::get('auditoria/documento/{id}', 'AuditoriaController@getArchivo')->name('auditoria.file.get');
 Route::post('auditoria/documento/{id}/delete', 'AuditoriaController@docDestroy')->name('auditoria.doc.destroy');
 Route::get('auditoria/documentos/{idAuditoria}', 'AuditoriaController@zipAll')->name('auditoria.zip');
+
+//------------------------------------------------- A D M I N --------------------------------------------------------------
+Route::get('administrador/usuarios/','AdminController@index')->name('admin.index');
+Route::post('administrador/usuario/store','AdminController@store')->name('store.usuario');
+Route::get('administrador/usuario/edit/{idUsuario}','AdminController@edit')->name('edit.usuario');
+Route::get('administrador/usuario/delete/{idUsuario}','AdminController@delete')->name('delete.usuario');
+Route::post('administrador/usuario/update/{idUsuario}','AdminController@update')->name('update.usuario');

@@ -111,7 +111,7 @@ return [
         'Menu',
         [
             'text'        => 'USUARIOS',
-            'url'         => 'users',
+            'url'         => 'administrador/usuarios/',
             'icon'        => 'user',
         ],
         [
