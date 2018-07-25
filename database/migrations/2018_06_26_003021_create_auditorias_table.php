@@ -15,11 +15,14 @@ class CreateAuditoriasTable extends Migration
     {
         Schema::create('auditoria', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('idCatComponente');
+            $table->integer('idCatComponente')->unsigned();
             $table->string('nombre');
             $table->timestamps();
             $table->softDeletes();
-            
+
+            $table->foreign('idCatComponente')
+            ->references('id')->on('cat_componente')
+            ->onDelete('cascade');
         });
     }
 

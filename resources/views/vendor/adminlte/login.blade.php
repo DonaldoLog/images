@@ -40,7 +40,7 @@
                     @endif
                 </div>
                 <div class="row">
-                    <div class="col-xs-8">
+                    <div class="col-xs-7">
                         <div class="checkbox icheck">
                             <label>
                                 <input type="checkbox" name="remember"> {{ trans('adminlte::adminlte.remember_me') }}
@@ -48,22 +48,22 @@
                         </div>
                     </div>
                     <!-- /.col -->
-                    <div class="col-xs-4">
+                    <div class="col-xs-5">
                         <button type="submit"
-                                class="btn btn-primary btn-block btn-flat">{{ trans('adminlte::adminlte.sign_in') }}</button>
+                                class="btn btn-primary btn-block btn-flat"> Iniciar sesión. </button>
                     </div>
                     <!-- /.col -->
                 </div>
             </form>
             <div class="auth-links">
-                <a href="{{ url(config('adminlte.password_reset_url', 'password/reset')) }}"
+                {{-- <a href="{{ url(config('adminlte.password_reset_url', 'password/reset')) }}"
                    class="text-center"
-                >{{ trans('adminlte::adminlte.i_forgot_my_password') }}</a>
+                >{{ trans('adminlte::adminlte.i_forgot_my_password') }}</a> --}}
                 <br>
                 @if (config('adminlte.register_url', 'register'))
-                    <a href="{{ url(config('adminlte.register_url', 'register')) }}"
+                    {{-- <a href="{{ url(config('adminlte.register_url', 'register')) }}"
                        class="text-center"
-                    >{{ trans('adminlte::adminlte.register_a_new_membership') }}</a>
+                    >{{ trans('adminlte::adminlte.register_a_new_membership') }}</a> --}}
                 @endif
             </div>
         </div>

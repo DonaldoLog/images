@@ -15,16 +15,16 @@ class CreateDocumentoTable extends Migration
     {
         Schema::create('documento', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('idEmpresa');
+            $table->integer('idEmpresa')->unsigned();
             $table->string('archivo',200);
             $table->string('nombre',200);
             $table->timestamps();
             $table->softDeletes();
 
 
-            // $table->foreign('idEmpresa')
-            // ->references('id')->on('cat_organizacion')
-            // ->onDelete('cascade');
+            $table->foreign('idEmpresa')
+            ->references('id')->on('cat_organizacion')
+            ->onDelete('cascade');
         });
     }
 

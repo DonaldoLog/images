@@ -15,14 +15,14 @@ class CreateCatOrganizacionesTable extends Migration
     {
         Schema::create('cat_organizacion', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('idComponente');
+            $table->integer('idComponente')->unsigned();
             $table->string('nombre',200);
             $table->softDeletes();
             $table->timestamps();
 
-            // $table->foreign('idComponente')
-            // ->references('id')->on('cat_componente')
-            // ->onDelete('cascade');
+            $table->foreign('idComponente')
+            ->references('id')->on('cat_componente')
+            ->onDelete('cascade');
         });
     }
 

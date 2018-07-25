@@ -15,12 +15,15 @@ class CreateDocumentosAuditoriaTable extends Migration
     {
         Schema::create('documento_auditoria', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('idAuditoria');
+            $table->integer('idAuditoria')->unsigned();
             $table->string('documento');
             $table->string('nombre');
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreign('idAuditoria')
+            ->references('id')->on('auditoria')
+            ->onDelete('cascade');
         });
     }
 

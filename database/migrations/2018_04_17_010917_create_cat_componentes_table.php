@@ -15,15 +15,15 @@ class CreateCatComponentesTable extends Migration
     {
         Schema::create('cat_componente', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('idPrograma');
+            $table->integer('idPrograma')->unsigned();
             $table->string('nombre',200);
             // $table->string('imagen',200)->nullable();
             $table->softDeletes();
             $table->timestamps();
 
-            // $table->foreign('idPrograma')
-            // ->references('id')->on('cat_programa')
-            // ->onDelete('cascade');
+            $table->foreign('idPrograma')
+            ->references('id')->on('cat_programa')
+            ->onDelete('cascade');
         });
     }
 

@@ -13,7 +13,7 @@
                 <div class="form-group">
                     <div class="form-group col-md-12">
                         <div class="pull-right">
-                            <a type="button" data-toggle="modal" data-target="#modalAddUser" class="btn btn-default">AGREGAR USUARIO</a>
+                            <a type="button" id="botonAgregar" class="btn btn-default">AGREGAR USUARIO</a>
                         </div>
                     </div>
                     <div class="row">
@@ -49,6 +49,7 @@
         {!!Form::open(['route'=>'store.usuario','method'=>'post'])!!}
         <div class="row">
             <div class="col-md-12">
+                    {!!Form::hidden('idUsuario',"",['id'=>'idUsuario'])!!}
                 <div class="form-group">
                     {!!Form::label('name','NOMBRE:')!!}
                     {!! Form::text('name', null, ['class' => 'form-control mayus','required']) !!}
@@ -70,8 +71,8 @@
                     {!! Form::password('password', ['class' => 'form-control','required']) !!}
                 </div>
                 <div class="form-group">
-                    {!!Form::label('idProgramas','PROGRAMAS:')!!}
-                    {!! Form::select('idProgramas[]', $programas,null, ['class' => "form-control",'style'=>'width:100%;','multiple','required']) !!}
+                    {!!Form::label('idComponente','COMPONENTES:')!!}
+                    {!! Form::select('idComponente[]', $componentes,null, ['class' => "form-control",'style'=>'width:100%;','multiple','required']) !!}
                 </div>
             </div>
 
@@ -80,7 +81,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">CREAR</button>
+        <button id="submit" class="btn btn-primary">CREAR</button>
         {!!Form::close()!!}
 
       </div>
@@ -92,16 +93,35 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $('select').select2();
-
     $('#users-table').on('click', '.editUser', function(event) {
         var id=this.value;
+        $('#idUsuario').val(id);
+        $.getJSON(route('edit.usuario',id), function(response) {
+            $('#modalUser').modal('toggle');
+            console.log(response);
+        });
         console.log(id);
     });
 
-    $('#users-table').on('click', '.deleteUser', function(event) {
+    $('#botonAgregar').on('click',function(event) {
         var id=this.value;
+        tipo="agregar";
+        $('#modalAddUser').modal('toggle');
+
+        $.getJSON(route('edit.usuario',id), function(response) {
+            $('#modalAddUser').modal('toggle');
+        });
         console.log(id);
     });
+
+    $('#submit').on('click', function(event) {
+        if(tipo=="editar"){
+
+        }else if(tipo=="agregar") {
+
+        }
+    });
+
 
 });
 </script>

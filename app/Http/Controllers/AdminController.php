@@ -3,19 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\catPrograma;
+use App\Models\CatComponente;
 use App\User;
 use DB;
 use App\Models\UserPermiso;
+use Alert;
 class AdminController extends Controller
 {
     public function index(){
         $usuarios=User::leftjoin('user_permiso','user_permiso.idUsuario','users.id')
-            ->join('cat_programa','cat_programa.id','user_permiso.idPrograma')
+            ->join('cat_componente','cat_componente.id','user_permiso.idComponente')
             ->select(DB::raw('CONCAT(users.name," ",ifnull(users.primerAp," ")," ",ifnull(users.segundoAp," ")) as nombre'),
                     'users.email',
                     'users.id',
-                    DB::raw('ifnull(group_concat(cat_programa.nombre)," ") as programas')
+                    DB::raw('ifnull(group_concat(cat_componente.nombre)," ") as componentes')
                     )
             ->groupBy('users.id')
             ->get();
@@ -24,9 +25,9 @@ class AdminController extends Controller
         // ('id',DB::raw('CONCAT(users.name," ",ifnull(users.primerAp," ")," ",ifnull(users.segundoAp," ")) as nombre'),'email')
         //     ->orderBy('name','asc')->get();
         // dump($usuarios);
-        $programas=catPrograma::orderBy('nombre','asc')->pluck('nombre','id');
+        $componentes=CatComponente::orderBy('nombre','asc')->pluck('nombre','id');
         return view('admin.index')
-            ->with('programas',$programas)
+            ->with('componentes',$componentes)
             ->with('usuarios',$usuarios);
     }
 
@@ -35,10 +36,10 @@ class AdminController extends Controller
         $user->password=bcrypt($request->password);
         $user->save();
 
-        foreach ($request->idProgramas as $key => $idPrograma) {
+        foreach ($request->idComponente as $key => $idComponente) {
             $permiso=new UserPermiso();
             $permiso->idUsuario=$user->id;
-            $permiso->idPrograma=$idPrograma;
+            $permiso->idComponente=$idComponente;
             $permiso->save();
         }
 
@@ -47,11 +48,11 @@ class AdminController extends Controller
 
     public function edit($idUsuario){
         $usuario=User::leftjoin('user_permiso','user_permiso.idUsuario','users.id')
-            ->join('cat_programa','cat_programa.id','user_permiso.idPrograma')
+            ->join('cat_componente','cat_componente.id','user_permiso.idComponente')
             ->select(DB::raw('CONCAT(users.name," ",ifnull(users.primerAp," ")," ",ifnull(users.segundoAp," ")) as nombre'),
                     'users.email',
                     'users.id',
-                    DB::raw('ifnull(group_concat(cat_programa.nombre)," ") as programas')
+                    DB::raw('ifnull(group_concat(cat_componente.nombre)," ") as componentes')
                     )
             ->where('users.id',$idUsuario)
             ->groupBy('users.id')
@@ -66,11 +67,13 @@ class AdminController extends Controller
 
     public function delete($idUsuario){
         $user=User::find($idUsuario);
-        $userProgramas=UserPermiso::where('idUsuario',$idUsuario)->get();
+        $name=$user->name;
+        $usercomponentes=UserPermiso::where('idUsuario',$idUsuario)->get();
         $user->delete();
-        foreach ($userProgramas as $userPrograma) {
-            $userPrograma->delete();
+        foreach ($usercomponentes as $usercomponente) {
+            $usercomponente->delete();
         }
+        Alert::success('El usuario ha sido eliminado '.$name.' con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
         return redirect()->route('admin.index');
     }
 }
