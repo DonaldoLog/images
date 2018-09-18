@@ -7,7 +7,15 @@
             <div class="box-header with-border">
                 <h3 class="box-title">PROGRAMAS</h3>
             </div>
-
+<style media="screen">
+.text-block {
+position: absolute;
+bottom: 10px;
+right: 10px;
+padding-left: 10px;
+padding-right: 10px;
+}
+</style>
             <!--box-body -->
             <div class="box-body">
                 <div class="row">
@@ -24,6 +32,10 @@
                                     <a href="{{ url('programa') }}/{!!$dato->id!!}/componentes" >
                                         <img  class="img"src='../public/storage/programasImagenes/{!!$dato->imagen!!}' height="250" width="350">
                                     </a>
+                                    <div class="text-block">
+                                        <a href="{!!route('programa.edit',$dato->id)!!}" class="fa fa-edit"></a>
+                                       <a href="{!!route('programa.destroy',$dato->id)!!}" class="fa fa-remove"></a>
+                                     </div>
                                 </center>
                             </div>
                         @endforeach

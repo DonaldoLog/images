@@ -21,6 +21,8 @@
             </div>
             <!--box-footer -->
             <div class="box-footer">
+                <a class="btn btn-danger" href="{!!route('programa.index')!!}"> REGRESAR</a>
+
                 <div class="row">
 
                 </div>

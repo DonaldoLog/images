@@ -37,11 +37,30 @@ class CatProgramaController extends Controller
         $programa->save();
         return redirect()->route('programa.index');
     }
-    public function edit(){
-        return view('programa.index');
+    public function edit($idPrograma){
+        $programa = CatPrograma::find($idPrograma);
+        return view('programa.edit')
+        ->with('programa',$programa);
     }
-    public function update(){
-        return view('programa.index');
+    public function update(Request $request,$idPrograma){
+        $is = CatPrograma::where('nombre',$request->nombre)->where('id','!=',$idPrograma)->first();
+        if ($is) {
+            Alert::success('El nombre del programa ya existe.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
+            return redirect()->back()->withInput();
+        }
+        $programa = CatPrograma::find($idPrograma);
+        $programa->nombre = $request->nombre;
+        $imagen = $programa->imagen;
+        if ($request->file('imagen')) {
+            $file = $request->file('imagen');
+            $name = 'imagen'.$request->nombre.'_'.time().'.'.$file->getClientOriginalExtension();
+            $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'programasImagenes'.DIRECTORY_SEPARATOR;
+            $file->move($path, $name);
+            $programa->$imagen=$name;
+        }
+        $programa->save();
+        Alert::success('El programa ha sido actualizado con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
+        return redirect()->route('programa.index');
     }
     public function show(){
         return view('programa.index');
