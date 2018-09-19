@@ -10,6 +10,7 @@ use App\Models\DocAuditoria;
 use App\Models\CatPrograma;
 use ZipArchive;
 use DB;
+use Alert;
 
 class AuditoriaController extends Controller
 {
@@ -32,10 +33,17 @@ class AuditoriaController extends Controller
     }
 
     public function createCarpeta(Request $request){
+        $auditoria=Auditoria::where('nombre',$request->nombre)->first();
+        if ($auditoria) {
+            Alert::warning('El nombre de la carpeta ya existe.', 'Aviso')->persistent("Aceptar")->autoclose(2000);
+            return redirect()->route('auditoria.componente',[$request->idCatComponente]);
+            // code...
+        }
         $carpeta=new Auditoria();
         $carpeta->idCatComponente=$request->idCatComponente;
         $carpeta->nombre=$request->nombre;
         $carpeta->save();
+        Alert::success('La carpeta ha sido creada con exito.', 'Atención')->persistent("Aceptar")->autoclose(2000);
         return redirect()->route('auditoria.componente',[$request->idCatComponente]);
     }
 
@@ -54,10 +62,19 @@ class AuditoriaController extends Controller
     }
 
     public function updateCarpeta(Request $request){
-        $auditoria=Auditoria::find($idAuditoria);
+        $auditoria=Auditoria::where('id','!=',$request->idAuditoria)->where('nombre',$request->nombre)->first();
+        // dd($auditoria,$request);
+        if ($auditoria) {
+            Alert::warning('El nombre de la carpeta ya existe.', 'Aviso')->persistent("Aceptar")->autoclose(2000);
+            return redirect()->route('auditoria.componente',[$request->idCatComponente]);
+            // code...
+        }
+        $auditoria = Auditoria::find($request->idAuditoria);
         $auditoria->nombre=$request->nombre;
-
-        return redirect()->route('auditoria.componente',[$auditoria->id]);
+        $auditoria->save();
+        // dd($auditoria,$request);
+        Alert::success('La carpeta ha sido actualizado con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
+        return redirect()->route('auditoria.componente',[$auditoria->idCatComponente]);
     }
 
     public function guardarArchivo(Request $request){
@@ -134,5 +151,15 @@ class AuditoriaController extends Controller
         header('Content-disposition: attachment; filename='.$zipname);
         header('Content-Length: ' . filesize($zipname));
         readfile($zipname);
+    }
+
+    public function destroyCarpeta($idAuditoria)
+    {
+        $carpeta=Auditoria::find($idAuditoria);
+        $idCatComponente = $carpeta->idCatComponente;
+        $carpeta->delete();
+
+        Alert::success('La carpeta ha sido eliminada con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
+        return redirect()->route('auditoria.componente',[$idCatComponente]);
     }
 }

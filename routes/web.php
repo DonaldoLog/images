@@ -68,7 +68,8 @@ Route::get('/auditoria/cat-compontes/lista', 'AuditoriaController@componetesData
 Route::get('/auditoria/componente/{idCatComponente}', 'AuditoriaController@carpetas')->name('auditoria.componente');
 Route::get('/auditoria/componente/auditoria/{idAuditoria}', 'AuditoriaController@verCarpeta')->name('ver.auditoria.componente');
 Route::post('/auditoria/nueva-carpeta/store', 'AuditoriaController@createCarpeta')->name('nueva.carpeta');
-Route::post('/auditoria/{idAuditoria}/update', 'AuditoriaController@updateCarpeta')->name('auditoria.update');
+Route::put('/auditoria/update', 'AuditoriaController@updateCarpeta')->name('auditoria.update');
+Route::get('/auditoria/{idAuditoria}/delete', 'AuditoriaController@destroyCarpeta')->name('auditoria.destroy');
 
 Route::post('auditoria/documento/save', 'AuditoriaController@guardarArchivo')->name('auditoria.save.file');
 Route::post('auditoria/documento/editar/', 'AuditoriaController@editarArchivo')->name('auditoria.edit.file');

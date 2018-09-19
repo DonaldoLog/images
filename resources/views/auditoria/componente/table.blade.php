@@ -18,7 +18,11 @@
                     <tr>
                         <td>{!!$carpeta->id!!}</td>
                         <td>{!!$carpeta->nombre!!}</td>
-                        <td> <a class="btn btn-info" href="{!!route('ver.auditoria.componente',$carpeta->id)!!}">ADMINISTRARr</a> </td>
+                        <td>
+                            <a class="btn btn-info" href="{!!route('ver.auditoria.componente',$carpeta->id)!!}"> <i class="fa fa-wrench"></i> </a>
+                            <button id="editar-boton" value="{!!$carpeta->id!!}" name="{!!$carpeta->nombre!!}" class="btn btn-warning" href="#"> <i class="fa fa-edit"></i> </button>
+                            <button id="remove-boton" value="{!!$carpeta->id!!}" name="{!!$carpeta->nombre!!}" class="btn btn-danger" href="#"> <i class="fa fa-remove"></i> </button>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
