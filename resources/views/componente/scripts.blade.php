@@ -8,6 +8,7 @@
                     "processing": true,
                     "serverSide": false,
                     "pageLength": 10,
+                    "order": [[ 1, "asc" ]],
                     "deferRender": true,
                     "ajax": "../../catCompontes/"+idPrograma,
                     "columns": [

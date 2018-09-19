@@ -18,7 +18,7 @@ class CatComponenteController extends Controller
     }
 
     public function catCompontesDataTable($idPrograma){
-        $data =CatComponente::where('idPrograma',$idPrograma)->withCount('organizaciones')->with('programa')->get();
+        $data =CatComponente::where('idPrograma',$idPrograma)->withCount('organizaciones')->with('programa')->orderBy('nombre')->get();
         if($data->isNotEmpty()){
             foreach ($data as $d) {
                 $d->idPrograma=$d->programa->nombre;

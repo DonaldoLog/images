@@ -5,6 +5,7 @@
                     "language":{"url":"//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"},
                     "processing": true,
                     "serverSide": false,
+                    "order": [[ 1, "asc" ]],
                     "pageLength": 10,
                     "deferRender": true,
                     "ajax": "catProgramas",

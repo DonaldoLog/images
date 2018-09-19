@@ -13,11 +13,11 @@ use Alert;
 class CatProgramaController extends Controller
 {
     public function index(){
-        $data =CatPrograma::withCount('componentes')->get();
+        $data =CatPrograma::withCount('componentes')->orderBy('nombre')->get();
         return view('programa.index')->with('data',$data);
     }
     public function catProgramasDataTable(){
-        $data =CatPrograma::withCount('componentes')->get();
+        $data =CatPrograma::withCount('componentes')->orderBy('nombre')->get();
         return Datatables::of($data)->make(true);
     }
     public function create(){
