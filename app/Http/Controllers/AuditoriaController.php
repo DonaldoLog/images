@@ -159,6 +159,7 @@ class AuditoriaController extends Controller
         $idCatComponente = $carpeta->idCatComponente;
         $carpeta->delete();
 
+
         Alert::success('La carpeta ha sido eliminada con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
         return redirect()->route('auditoria.componente',[$idCatComponente]);
     }

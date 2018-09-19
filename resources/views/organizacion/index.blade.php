@@ -12,6 +12,8 @@
             <div class="box-body">
                 <div class="row">
                     <div class="form-group col-md-12">
+                        <a href="{!!route('programa.componentes',$componente->id)!!}" class="btn btn-default"> <i class="fa fa-mail-reply"> </i> </a>
+
                         <div class="pull-right">
                             <a type="button" href="{{route('organizacion.create',[$idPrograma,$idComponente])}}" class="btn btn-default">AGREGAR ORGANIZACION</a>
                         </div>

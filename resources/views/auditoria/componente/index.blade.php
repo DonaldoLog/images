@@ -16,6 +16,7 @@
             <div class="box-body">
                 <div class="row">
                     <div class="form-group col-md-12">
+                        <a href="{!!route('auditoria.index')!!}" class="btn btn-default"> <i class="fa fa-mail-reply"> </i> </a>
                         <div class="pull-right">
                             <a data-toggle="modal" href="#myModal" class="btn btn-primary" class="btn btn-default">AGREGAR CARPETA</a>
                         </div>
@@ -26,7 +27,6 @@
             <!--box-footer -->
             <div class="box-footer">
                 <div class="row">
-
                 </div>
             </div>
         </div>

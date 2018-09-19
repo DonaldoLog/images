@@ -12,6 +12,7 @@
             <!--box-body -->
             <div class="box-body">
                 <div class="form-group col-md-12">
+                    <a href="{!!route('componente.index.programa',[$idPrograma,$idComponente])!!}" class="btn btn-default"> <i class="fa fa-mail-reply"> </i> </a>
 
                 <div class="pull-right">
                         <button id="addFile" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">AGREGAR ARCHIVO</button>
@@ -21,6 +22,8 @@
                 <div class="row">
                     {{Form::model($organizacion,['route' => ['organizacion.update',$organizacion->id],'enctype'=>'multipart/form-data','method'=>'PUT'])}}
                     @include('organizacion.fields')
+
+
                     <div class="form-group col-md-12">
 
                     {{-- I  M  A  G E  N  E  S  --}}
@@ -56,7 +59,7 @@
                     </div>
 
 
-                        {{Form::submit('Guardar',['class'=>'btn btn-success'])}}
+                        {{-- {{Form::submit('Guardar',['class'=>'btn btn-success'])}} --}}
                     </div>
                     {{Form::close()}}
                 </div>

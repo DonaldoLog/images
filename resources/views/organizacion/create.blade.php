@@ -10,11 +10,14 @@
 
             <!--box-body -->
             <div class="box-body">
+                <a href="{!!route('componente.index.programa',[$idPrograma,$idComponente])!!}" class="btn btn-default"> <i class="fa fa-mail-reply"> </i> </a>
+                
                 <div class="row">
+
                     {{Form::open(['route' => 'organizacion.store','enctype'=>'multipart/form-data'])}}
                     @include('organizacion.fields')
                     <div class="form-group col-md-12">
-                        {{Form::submit('Guardar',['class'=>'btn btn-success'])}}
+                        {{-- {{Form::submit('Guardar',['class'=>'btn btn-success'])}} --}}
                     </div>
                     {{Form::close()}}
                 </div>

@@ -12,7 +12,7 @@
             <!--box-body -->
             <div class="box-body">
                 <div class="form-group col-md-12">
-
+                <a href="{!!route('auditoria.componente',$componente->id)!!}" class="btn btn-default"> <i class="fa fa-mail-reply"> </i> </a>
                 <div class="pull-right">
                         <button id="addFile" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">AGREGAR ARCHIVO</button>
                     </div>

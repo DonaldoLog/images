@@ -12,6 +12,8 @@
             <div class="box-body">
                 <div class="row">
                     <div class="form-group col-md-12">
+                        <a href="{!!route('programa.index')!!}" class="btn btn-default"> <i class="fa fa-mail-reply"> </i> </a>
+
                         <div class="pull-right">
                             <a type="button" href="{{route('programa.create.componente',$idPrograma)}}" class="btn btn-default">AGREGAR COMPONENTE</a>
                         </div>
@@ -21,7 +23,6 @@
             </div>
             <!--box-footer -->
             <div class="box-footer">
-                <a class="btn btn-danger" href="{!!route('programa.index')!!}"> REGRESAR</a>
 
                 <div class="row">
 

@@ -14,6 +14,8 @@
 
             <!--box-body -->
             <div class="box-body">
+                <a href="{!!route('programa.index')!!}" class="btn btn-default"> <i class="fa fa-mail-reply"> </i> </a>
+
                 <div class="row">
                     {{Form::open(['route' =>['programa.update',$programa->id],'method'=>'put','enctype'=>'multipart/form-data'])}}
                     @include('programa.fields')
