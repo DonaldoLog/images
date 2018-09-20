@@ -1,6 +1,12 @@
 @push('js')
     <script type="text/javascript">
     $(document).ready(function() {
+        console.log('as');
+        $( "form" ).submit(function( event ) {
+          alert( "Handler for .submit() called." );
+          event.preventDefault();
+        });
+
         $('#programasTabla').DataTable({
                     "language":{"url":"//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"},
                     "processing": true,

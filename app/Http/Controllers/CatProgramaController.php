@@ -6,14 +6,27 @@ use Illuminate\Http\Request;
 use App\Models\CatPrograma;
 use App\Models\CatOrganizacion;
 use App\Models\CatComponente;
+use App\Models\UserPermiso;
 use Yajra\DataTables\Datatables;
 use DB;
 use Alert;
+use Illuminate\Support\Facades\Auth;
 
 class CatProgramaController extends Controller
 {
     public function index(){
-        $data =CatPrograma::withCount('componentes')->orderBy('nombre')->get();
+        if (Auth::user()->nivel==3) {
+            $componentes =UserPermiso::join('users','users.id','user_permiso.idUsuario')
+            ->where('users.id',Auth::user()->id)
+            ->pluck('user_permiso.idComponente')->toArray();
+            $data = CatPrograma::join('cat_componente','cat_componente.idPrograma','cat_programa.id')
+            ->whereIn('cat_componente.id',$componentes)->withCount('componentes')->get();
+            // $programas =CatPrograma::withCount('componentes')->orderBy('nombre')->get();
+        }else {
+            $data =CatPrograma::withCount('componentes')->orderBy('nombre')->get();
+            // code...
+        }
+        // dd($componentes);
         return view('programa.index')->with('data',$data);
     }
     public function catProgramasDataTable(){

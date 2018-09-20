@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name',200);
             $table->string('email')->unique();
             $table->string('password');
+            $table->integer('nivel')->unsigned();
             $table->string('primerAp',200)->nullable();
             $table->string('segundoAp',200)->nullable();
             $table->string('usuario',200)->nullable();

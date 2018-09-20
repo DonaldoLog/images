@@ -6,19 +6,52 @@ use Illuminate\Http\Request;
 use App\Models\CatPrograma;
 use App\Models\CatOrganizacion;
 use App\Models\CatComponente;
+use App\Models\UserPermiso;
 use Yajra\DataTables\Datatables;
 use DB;
 use Alert;
+use Illuminate\Support\Facades\Auth;
 
 class CatComponenteController extends Controller
 {
     public function index($idPrograma){
-        $programa=CatPrograma::find($idPrograma);
-        return view('componente.index')->with('idPrograma',$idPrograma)->with('programa',$programa);
+        if (Auth::user()->nivel==3) {
+            $componentes =UserPermiso::join('users','users.id','user_permiso.idUsuario')
+            ->where('users.id',Auth::user()->id)
+            ->pluck('user_permiso.idComponente')->toArray();
+            $programas = CatPrograma::join('cat_componente','cat_componente.idPrograma','cat_programa.id')
+            ->whereIn('cat_componente.id',$componentes)->pluck('cat_programa.id')->toArray();
+
+            if (in_array($idPrograma,$programas)) {
+                $programa=CatPrograma::find($idPrograma);
+                return view('componente.index')->with('idPrograma',$idPrograma)->with('programa',$programa);
+            }else {
+                return redirect()->route('programa.index');
+            }
+        }else {
+            $programa=CatPrograma::find($idPrograma);
+            return view('componente.index')->with('idPrograma',$idPrograma)->with('programa',$programa);
+        }
+
     }
 
     public function catCompontesDataTable($idPrograma){
-        $data =CatComponente::where('idPrograma',$idPrograma)->withCount('organizaciones')->with('programa')->orderBy('nombre')->get();
+        if (Auth::user()->nivel==3) {
+            $componentes =UserPermiso::join('users','users.id','user_permiso.idUsuario')
+            ->where('users.id',Auth::user()->id)
+            ->pluck('user_permiso.idComponente')->toArray();
+
+            $data =CatComponente::where('idPrograma',$idPrograma)
+            ->whereIn('id',$componentes)
+            ->withCount('organizaciones')
+            ->with('programa')
+            ->orderBy('nombre')->get();
+        }else {
+            $data =CatComponente::where('idPrograma',$idPrograma)
+            ->withCount('organizaciones')
+            ->with('programa')
+            ->orderBy('nombre')->get();
+        }
         if($data->isNotEmpty()){
             foreach ($data as $d) {
                 $d->idPrograma=$d->programa->nombre;

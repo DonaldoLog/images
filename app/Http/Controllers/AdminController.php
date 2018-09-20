@@ -34,6 +34,7 @@ class AdminController extends Controller
     public function store(Request $request){
         $user=new User($request->all());
         $user->password=bcrypt($request->password);
+        $user->nivel = 3;
         $user->save();
 
         foreach ($request->idComponente as $key => $idComponente) {
