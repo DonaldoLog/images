@@ -30,7 +30,11 @@ padding-right: 10px;
                                 <h3 align="center">{!!$dato->nombre!!}</h3>
                                 <center>
                                     <a href="{{ url('programa') }}/{!!$dato->id!!}/componentes" >
-                                        <img  class="img"src='../public/storage/programasImagenes/{!!$dato->imagen!!}' height="250" width="350">
+                                        @if ($dato->imagen == null || $dato->imagen == "")
+                                            <img  class="img"src='../public/images/default.png' height="250" width="350">
+                                        @else
+                                            <img  class="img"src='../public/storage/programasImagenes/{!!$dato->imagen!!}' height="250" width="350">
+                                        @endif
                                     </a>
                                     <div class="text-block">
                                         <a href="{!!route('programa.edit',$dato->id)!!}" class="fa fa-edit"></a>

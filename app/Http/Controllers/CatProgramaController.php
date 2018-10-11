@@ -69,7 +69,7 @@ class CatProgramaController extends Controller
             $name = 'imagen'.$request->nombre.'_'.time().'.'.$file->getClientOriginalExtension();
             $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'programasImagenes'.DIRECTORY_SEPARATOR;
             $file->move($path, $name);
-            $programa->$imagen=$name;
+            $programa->imagen=$name;
         }
         $programa->save();
         Alert::success('El programa ha sido actualizado con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);

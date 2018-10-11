@@ -48,17 +48,11 @@ class AdminController extends Controller
     }
 
     public function edit($idUsuario){
-        $usuario=User::leftjoin('user_permiso','user_permiso.idUsuario','users.id')
-            ->join('cat_componente','cat_componente.id','user_permiso.idComponente')
-            ->select(DB::raw('CONCAT(users.name," ",ifnull(users.primerAp," ")," ",ifnull(users.segundoAp," ")) as nombre'),
-                    'users.email',
-                    'users.id',
-                    DB::raw('ifnull(group_concat(cat_componente.nombre)," ") as componentes')
-                    )
-            ->where('users.id',$idUsuario)
-            ->groupBy('users.id')
-            ->get();
-        return [$usuario];
+        $usuario = User::find($idUsuario);
+
+        $permisos = UserPermiso::where('idUsuario',$idUsuario)->select(DB::raw('group_concat(idComponente) as componentes'))->first();
+        $data = array('usuario'=>$usuario,'permisos'=>$permisos->componentes);
+        return response()->json($data);
     }
 
     public function update(Request $request,$idUsuario){
