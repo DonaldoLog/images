@@ -78,8 +78,8 @@ Route::post('auditoria/documento/{id}/delete', 'AuditoriaController@docDestroy')
 Route::get('auditoria/documentos/{idAuditoria}', 'AuditoriaController@zipAll')->name('auditoria.zip');
 
 //------------------------------------------------- A D M I N --------------------------------------------------------------
-Route::get('administrador/usuarios/','AdminController@index')->name('admin.index');
-Route::post('administrador/usuario/store','AdminController@store')->name('store.usuario');
-Route::get('administrador/usuario/edit/{idUsuario}','AdminController@edit')->name('edit.usuario');
-Route::get('administrador/usuario/delete/{idUsuario}','AdminController@delete')->name('delete.usuario');
-Route::post('administrador/usuario/update/{idUsuario}','AdminController@update')->name('update.usuario');
+Route::get('administrador/usuarios/','AdminController@index')->name('admin.index')->middleware(['role:admin']);;
+Route::post('administrador/usuario/store','AdminController@store')->name('store.usuario')->middleware(['role:admin']);;
+Route::get('administrador/usuario/edit/{idUsuario}','AdminController@edit')->name('edit.usuario')->middleware(['role:admin']);;
+Route::get('administrador/usuario/delete/{idUsuario}','AdminController@delete')->name('delete.usuario')->middleware(['role:admin']);;
+Route::post('administrador/usuario/update/{idUsuario}','AdminController@update')->name('update.usuario')->middleware(['role:admin']);;

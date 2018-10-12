@@ -37,6 +37,8 @@ class AdminController extends Controller
         $user->nivel = 3;
         $user->save();
 
+        $user->assignRole('operador');
+
         foreach ($request->idComponente as $key => $idComponente) {
             $permiso=new UserPermiso();
             $permiso->idUsuario=$user->id;

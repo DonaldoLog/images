@@ -20,9 +20,11 @@ padding-right: 10px;
             <div class="box-body">
                 <div class="row">
                     <div class="form-group col-md-12">
+                        @role('admin')
                         <div class="pull-right">
                             <a type="button" href="{{route('programa.create')}}" class="btn btn-default">AGREGAR PROGRAMA</a>
                         </div>
+                        @endrole
                     </div>
                     <div class="form-group col-md-12">
                         @foreach ($data as $dato)

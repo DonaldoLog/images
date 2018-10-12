@@ -113,6 +113,7 @@ return [
             'text'        => 'USUARIOS',
             'url'         => 'administrador/usuarios/',
             'icon'        => 'user',
+            'can'         => 'index_users',
         ],
         [
             'text'        => 'PROGRAMAS',
