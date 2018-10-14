@@ -118,7 +118,7 @@ class CatComponenteController extends Controller
         return view('componente.indexComponentes')->with('componentes',$componentes)->with('idPrograma',$idPrograma);
     }
     public function createComponente($idPrograma){
-        $programa=CatPrograma::where('id',$idPrograma)->first();
+        $programa=CatPrograma::findOrFail($idPrograma);
         return view('componente.createComponente')->with('programa',$programa);
     }
 

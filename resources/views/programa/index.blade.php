@@ -38,10 +38,13 @@ padding-right: 10px;
                                             <img  class="img"src='../public/storage/programasImagenes/{!!$dato->imagen!!}' height="250" width="350">
                                         @endif
                                     </a>
+                                    @hasrole('admin')
                                     <div class="text-block">
                                         <a href="{!!route('programa.edit',$dato->id)!!}" class="fa fa-edit"></a>
-                                       <a href="{!!route('programa.destroy',$dato->id)!!}" class="fa fa-remove"></a>
-                                     </div>
+                                        <a id='borrarProgramaBoton' href="#" name='{{$dato->nombre}}' value='{{$dato->id}}' class="fa fa-remove" ></a>
+                                        {{-- <a id="borrarProgramaBoton"  class="fa fa-remove"></a> --}}
+                                    </div>
+                                    @endhasrole
                                 </center>
                             </div>
                         @endforeach
@@ -49,7 +52,8 @@ padding-right: 10px;
                     {{-- @include('programa.table') --}}
                 </div>
             </div>
-            <!--box-footer -->
+            {!!Form::open(['route' => ['programa.destroy',null],'method'=>'delete','id'=>'borrarPrograma'])!!}
+            {!!Form::close()!!}
             <div class="box-footer">
                 <div class="row">
 
@@ -59,4 +63,4 @@ padding-right: 10px;
     </div>
 </div>
 @stop
-{{-- @include('programa.scripts') --}}
+@include('programa.scripts')

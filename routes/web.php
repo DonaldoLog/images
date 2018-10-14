@@ -16,10 +16,8 @@ Auth::routes();
 
 Route::get('/', 'Auth\LoginController@showLoginForm');
 
-Auth::routes();
-
+Route::group(['middleware' => ['web']], function () {
 Route::get('/home','CatProgramaController@index')->name('home');
-
 //-------------------------------------------------------------------------- PROGRAMAS --------------------------------------------------------------------------
 Route::get('catProgramas', 'CatProgramaController@catProgramasDataTable');
 Route::get('/programas', 'CatProgramaController@index')->name('programa.index');
@@ -28,7 +26,7 @@ Route::post('/programa/store', 'CatProgramaController@store')->name('programa.st
 Route::get('/programa/{id}/edit', 'CatProgramaController@edit')->name('programa.edit');
 Route::put('/programa/{id}', 'CatProgramaController@update')->name('programa.update');
 Route::get('/programa/{id}', 'CatProgramaController@show')->name('programa.show');
-Route::get('/programa/{id}/delete', 'CatProgramaController@destroy')->name('programa.destroy');
+Route::delete('/programa/{id}/delete', 'CatProgramaController@destroy')->name('programa.destroy');
 
 //-------------------------------------------------------------------------- COMPONENTES --------------------------------------------------------------------------
 Route::get('catCompontes/{idPrograma}', 'CatComponenteController@catCompontesDataTable')->name('catCompontes.dataTable');
@@ -83,3 +81,5 @@ Route::post('administrador/usuario/store','AdminController@store')->name('store.
 Route::get('administrador/usuario/edit/{idUsuario}','AdminController@edit')->name('edit.usuario')->middleware(['role:admin']);;
 Route::get('administrador/usuario/delete/{idUsuario}','AdminController@delete')->name('delete.usuario')->middleware(['role:admin']);;
 Route::post('administrador/usuario/update/{idUsuario}','AdminController@update')->name('update.usuario')->middleware(['role:admin']);;
+
+});

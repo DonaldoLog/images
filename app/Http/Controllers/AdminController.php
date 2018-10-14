@@ -45,7 +45,7 @@ class AdminController extends Controller
             $permiso->idComponente=$idComponente;
             $permiso->save();
         }
-
+        Alert::success('El usuario '.$user->name.' ha sido  creado con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
         return redirect()->route('admin.index');
     }
 
@@ -58,7 +58,27 @@ class AdminController extends Controller
     }
 
     public function update(Request $request,$idUsuario){
+        $usuario = User::find($idUsuario);
+        $usuario->name = $request->name;
+        $usuario->primerAp = $request->primerAp;
+        $usuario->segundoAp = $request->segundoAp;
+        $usuario->email = $request->email;
+        if ($request->newPassword!=null || $request->newPassword!='') {
+            $usuario->password=bcrypt($request->newPassword);
+        }
+        $usuario->save();
+        $permisos = UserPermiso::where('idUsuario',$idUsuario)->get();
+        foreach ($permisos as $key => $permiso) {
+            $permiso->delete();
+        }
 
+        foreach ($request->idComponente as $key => $idComponente) {
+            $permiso=new UserPermiso();
+            $permiso->idUsuario=$usuario->id;
+            $permiso->idComponente=$idComponente;
+            $permiso->save();
+        }
+        Alert::success('El usuario '.$usuario->name.' ha sido actualizado con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
         return redirect()->route('admin.index');
     }
 

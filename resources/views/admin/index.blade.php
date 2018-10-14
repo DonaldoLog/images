@@ -65,9 +65,14 @@
                                         {!!Form::label('email','CORREO:')!!}
                                         {!! Form::text('email', null, ['class' => 'form-control mayus','required']) !!}
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" id="newPass" style="display:none;">
+                                        {!!Form::label('password','NUEVA CONTRASEÑA:')!!}
+                                        {!! Form::checkbox('password',1,false,['id'=>'checkNewPassword']) !!}
+                                        {!! Form::password('newPassword', ['class' => 'form-control','id'=>'newPassword','disabled']) !!}
+                                    </div>
+                                    <div class="form-group" id="currentPass" style="display:show;">
                                         {!!Form::label('password','CONTRASEÑA:')!!}
-                                        {!! Form::password('password', ['class' => 'form-control','required']) !!}
+                                        {!! Form::password('password', ['class' => 'form-control']) !!}
                                     </div>
                                     <div class="form-group">
                                         {!!Form::label('idComponente','COMPONENTES:')!!}
@@ -79,8 +84,8 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button id="submit" class="btn btn-primary">CREAR</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">CERRAR</button>
+                            <button id="submit" class="btn btn-primary">GUARDAR</button>
                             {!!Form::close()!!}
 
                         </div>
@@ -102,23 +107,38 @@
                 id=this.value;
                 tipo="editar";
                 $('#idUsuario').val(id);
+                $('#currentPass').hide();
+                $('#newPass').show();
+                $('#password').prop('required',false);
                 $('#modalAddUser').modal('toggle');
                 $.getJSON(route('edit.usuario',id), function(response) {
                     $("#idComponente").val('').trigger('change');
-
-                    console.log(response.usuario['primerAp']);
+                    console.log(response.usuario);
                     var values=response.permisos;
-                    // console.log(values);
                     $.each(values.split(","), function(i,e){
                         $("#idComponente option[value='" + e + "']").prop("selected", true);
                         console.log(e);
                     });
                     $('#idComponente').select2();
-                    // $('#modalAddUser').modal('toggle');
+                    $('#name').val(response.usuario['name']);
+                    $('#primerAp').val(response.usuario['primerAp']);
+                    $('#segundoAp').val(response.usuario['segundoAp']);
+                    $('#email').val(response.usuario['email']);
+                    $('#password').val('');
+
                 });
             });
 
             $('#botonAgregar').on('click',function(event) {
+                $('#currentPass').show();
+                $('#newPass').hide();
+                $('#name').val('');
+                $('#primerAp').val('');
+                $('#segundoAp').val('');
+                $('#email').val('');
+                $('#password').val('');
+                $('#password').prop('required',true);
+                $("#idComponente").val('').trigger('change');
                 $('#idComponente').select2("val", "");
                 tipo="agregar";
                 $('#modalAddUser').modal('toggle');
@@ -127,11 +147,22 @@
             $('#submit').on('click', function() {
                 this.preventDefault;
                 if(tipo=="editar"){
-                    $('#formUser').attr('action', route('edit.usuario',id));
+                    $('#formUser').attr('action', route('update.usuario',id));
                     $('#formUser').submit();
                 }else if(tipo=="agregar") {
                     $('#formUser').attr('action', route('store.usuario'));
                     $('#formUser').submit();
+                }
+            });
+
+            $('#checkNewPassword').on('click', function(event) {
+                if($('#checkNewPassword').prop('checked')) {
+                    $('#newPassword').prop('disabled', false);
+                    $('#newPassword').prop('required',true);
+                } else {
+                    $('#newPassword').prop('disabled', true);
+                    $('#newPassword').prop('required',false);
+
                 }
             });
 
