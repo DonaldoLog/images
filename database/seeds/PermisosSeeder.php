@@ -16,9 +16,7 @@ class PermisosSeeder extends Seeder
         app()['cache']->forget('spatie.permission.cache');
 
        Permission::create(['name' => 'index_users']);
-       // create roles and assign created permissions
        $role = Role::create(['name' => 'operador']);
-       $role->givePermissionTo('edit articles');
        $role = Role::create(['name' => 'admin']);
        $role->givePermissionTo(Permission::all());
     }
