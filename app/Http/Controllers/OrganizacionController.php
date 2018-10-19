@@ -67,7 +67,7 @@ class OrganizacionController extends Controller
         // $files = array('readme.txt', 'test.html', 'image.gif');
         $files=Documento::Where('idEmpresa','=',$idOrganizacion)->pluck('archivo');
         $organizacion=CatOrganizacion::find($idOrganizacion);
-        $zipname = $organizacion->nombre.time().'.zip';
+        $zipname = time().'.zip';
         $zip = new ZipArchive;
         $zip->open($zipname, ZipArchive::CREATE);
         foreach ($files as $file) {
