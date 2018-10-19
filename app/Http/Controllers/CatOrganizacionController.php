@@ -82,6 +82,7 @@ class CatOrganizacionController extends Controller
             ->where('users.id',Auth::user()->id)
             ->pluck('user_permiso.idComponente')->toArray();
             $organizaciones = CatOrganizacion::join('cat_componente','cat_componente.id','cat_organizacion.idComponente')
+            ->where('cat_componente.idPrograma',$idPrograma)
             ->whereIn('cat_componente.id',$componentes)->pluck('cat_organizacion.id')->toArray();
 
             if (in_array($idOrganizacion,$organizaciones)) {
