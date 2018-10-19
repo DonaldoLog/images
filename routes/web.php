@@ -16,7 +16,7 @@ Auth::routes();
 
 Route::get('/', 'Auth\LoginController@showLoginForm');
 
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => ['auth']], function () {
 Route::get('/home','CatProgramaController@index')->name('home');
 //-------------------------------------------------------------------------- PROGRAMAS --------------------------------------------------------------------------
 Route::get('catProgramas', 'CatProgramaController@catProgramasDataTable');
