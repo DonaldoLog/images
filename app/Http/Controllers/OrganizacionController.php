@@ -67,13 +67,12 @@ class OrganizacionController extends Controller
         // $files = array('readme.txt', 'test.html', 'image.gif');
         $files=Documento::Where('idEmpresa','=',$idOrganizacion)->pluck('archivo');
         $organizacion=CatOrganizacion::find($idOrganizacion);
+        $zipname = $organizacion->nombre.".zip";
         $zip = new ZipArchive;
-        $zip_name = time().".zip";
         $zip->open($zipname, ZipArchive::CREATE);
         foreach ($files as $file) {
             $ruta=public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'archivos'.DIRECTORY_SEPARATOR.$file;
-            $zip->addFile($ruta);
-            // dump($ruta);
+             $zip->addFile($ruta, $file);
         }
         $zip->close();
         // dd($zip,$zipname);
