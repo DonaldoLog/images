@@ -46,11 +46,8 @@
                             <br>
                             @foreach ($data as $dato)
                                 <div class="col-md-4">
-                                    <div class="text-block">
-
-                                        <h3 class="texto" align="center">{!!$dato->nombre!!}</h3>
-                                    </div>
-
+                                    <h3 class="texto" align="center">{!!$dato->nombre!!}</h3>
+                        
                                     <div class="img-container" style="height:200px;">
                                         <a style="width:100%;" href="{{ url('programa') }}/{!!$dato->id!!}/componentes" >
                                             @if ($dato->imagen == null || $dato->imagen == "")

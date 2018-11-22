@@ -54,6 +54,7 @@ Route::get('/organizacion/{id}/delete', 'CatOrganizacionController@destroy')->na
 
 //-------------------------------------------------------------------------- Archivos --------------------------------------------------------------------------
 Route::post('documento', 'OrganizacionController@guardarArchivo')->name('save.file');
+Route::post('documentos', 'OrganizacionController@guardarArchivos')->name('save.files');
 Route::post('documento/editar/', 'OrganizacionController@editarArchivo')->name('edit.file');
 Route::get('documento/{id}', 'OrganizacionController@getArchivo')->name('file.get');
 Route::post('documento/{id}/delete', 'OrganizacionController@docDestroy')->name('doc.destroy');
@@ -70,6 +71,7 @@ Route::put('/auditoria/update', 'AuditoriaController@updateCarpeta')->name('audi
 Route::get('/auditoria/{idAuditoria}/delete', 'AuditoriaController@destroyCarpeta')->name('auditoria.destroy');
 
 Route::post('auditoria/documento/save', 'AuditoriaController@guardarArchivo')->name('auditoria.save.file');
+Route::post('auditoria/documentos/save', 'AuditoriaController@guardarArchivos')->name('auditoria.save.files');
 Route::post('auditoria/documento/editar/', 'AuditoriaController@editarArchivo')->name('auditoria.edit.file');
 Route::get('auditoria/documento/{id}', 'AuditoriaController@getArchivo')->name('auditoria.file.get');
 Route::post('auditoria/documento/{id}/delete', 'AuditoriaController@docDestroy')->name('auditoria.doc.destroy');

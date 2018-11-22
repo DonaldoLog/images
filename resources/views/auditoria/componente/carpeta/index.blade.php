@@ -14,6 +14,7 @@
                 <div class="form-group col-md-12">
                 <a href="{!!route('auditoria.componente',$componente->id)!!}" class="btn btn-default"> <i class="fa fa-mail-reply"> </i> </a>
                 <div class="pull-right">
+                        <button id="addFileMulti" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalMulti">AGREGAR ARCHIVOS</button>
                         <button id="addFile" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">AGREGAR ARCHIVO</button>
                     </div>
                 </div>
@@ -91,6 +92,34 @@
               {{-- {!! Form::hidden('idPrograma', $idPrograma) !!} --}}
               {!! Form::label('file', 'ARCHIVO:') !!}
               <input type="file"  class="archivo" id="file" name="file">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="cancelarModal" data-dismiss="modal">CANCELAR</button>
+        {{Form::submit('Guardar',['class'=>'btn btn-success','id'=>'submitModal'])}}
+      </div>
+      {!!Form::close()!!}
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="myModalMulti" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">AGREGAR ARCHIVO</h4>
+      </div>
+      <div class="modal-body">
+          {!!Form::open(['route'=>'auditoria.save.files','enctype'=>'multipart/form-data'])!!}
+          {!! Form::label('nombre', 'NOMBRE:') !!}
+          {!! Form::text('nombre', null, ['class' => 'form-control mayus','required','id'=>'nombre']) !!}
+          {!! Form::hidden('idFile', '') !!}
+          {!! Form::hidden('idAuditoria', $auditoria->id) !!}
+          {{-- {!! Form::hidden('idComponente', $idComponente) !!} --}}
+          {{-- {!! Form::hidden('idPrograma', $idPrograma) !!} --}}
+              {!! Form::label('file', 'ARCHIVO:') !!}
+              <input type="file" multiple class="archivo" id="fileMulti" name="file[]">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" id="cancelarModal" data-dismiss="modal">CANCELAR</button>
@@ -229,6 +258,19 @@
               allowedFileExtensions: ['jpg', 'jpeg', 'png','xdoc','ppt','pdf']
           });
     });
+    $('#addFileMulti').on('click', function(event) {
+        $('#fileMulti').fileinput('destroy');
+        $("#fileMulti").fileinput({
+              language: 'es',
+              theme: 'fa',
+              showPreview: false,
+              showRemove: false,
+              showUpload:false,
+
+              allowedFileExtensions: ['jpg', 'jpeg', 'png','xdoc','ppt','pdf']
+          });
+    });
+
 
     </script>
 @endpush

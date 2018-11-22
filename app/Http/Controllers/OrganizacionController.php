@@ -11,28 +11,27 @@ use DB;
 use Alert;
 use ZipArchive;
 
-
 class OrganizacionController extends Controller
 {
-    public function guardarArchivo(Request $request){
+    public function guardarArchivo(Request $request)
+    {
         $nombreEmpresa=CatOrganizacion::find($request->idEmpresa)->select('nombre')->get()->first();
 
-        if($request->idFile!="" || $request->idFile!=null){
+        if ($request->idFile!="" || $request->idFile!=null) {
             // dd($request);
             $archivo=Documento::find($request->idFile);
             $archivo->nombre=$request->nombreArhivo;
             if ($request->file('file')) {
-                    $file = $request->file('file');
-                    $name = $nombreEmpresa->nombre."_".$request->nombreArhivo.'_'.time().'.'.$file->getClientOriginalExtension();
-                    $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'archivos'.DIRECTORY_SEPARATOR;
-                    $file->move($path, $name);
-                    $archivo->archivo=$name;
-                }else {
-                    $archivo->archivo=null;
-                }
+                $file = $request->file('file');
+                $name = $nombreEmpresa->nombre."_".$request->nombreArhivo.'_'.time().'.'.$file->getClientOriginalExtension();
+                $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'archivos'.DIRECTORY_SEPARATOR;
+                $file->move($path, $name);
+                $archivo->archivo=$name;
+            } else {
+                $archivo->archivo=null;
+            }
             $archivo->save();
-
-        }else {
+        } else {
             $archivo= new Documento();
             $archivo->idEmpresa=$request->idEmpresa;
             $archivo->nombre=$request->nombreArhivo;
@@ -42,21 +41,41 @@ class OrganizacionController extends Controller
                 $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'archivos'.DIRECTORY_SEPARATOR;
                 $file->move($path, $name);
                 $archivo->archivo=$name;
-            }else {
+            } else {
                 $archivo->archivo=null;
             }
             $archivo->save();
         }
-        return redirect()->route('organizacion.edit',[$request->idPrograma,$request->idComponente,$request->idEmpresa]);
-
+        return redirect()->route('organizacion.edit', [$request->idPrograma,$request->idComponente,$request->idEmpresa]);
     }
 
-    public function getArchivo($id){
+
+    public function guardarArchivos(Request $request)
+    {
+        $nombreEmpresa=CatOrganizacion::find($request->idEmpresa)->select('nombre')->get()->first();
+        foreach ($request->file('file') as $key => $file) {
+            $archivo= new Documento();
+            $archivo->idEmpresa=$request->idEmpresa;
+            $archivo->nombre=$request->nombreArhivo;
+            $name = $nombreEmpresa->nombre."_".$request->nombreArhivo.'_'.$key.'_'.time().'.'.$file->getClientOriginalExtension();
+            $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'archivos'.DIRECTORY_SEPARATOR;
+            $file->move($path, $name);
+            $archivo->archivo=$name;
+            $archivo->save();
+        }
+
+        return redirect()->route('organizacion.edit', [$request->idPrograma,$request->idComponente,$request->idEmpresa]);
+    }
+
+
+    public function getArchivo($id)
+    {
         $file= Documento::find($id);
         return [$file];
     }
 
-    public function docDestroy($id){
+    public function docDestroy($id)
+    {
         $file=Documento::find($id);
         $file->delete();
         return ['success'=>true];
@@ -65,14 +84,14 @@ class OrganizacionController extends Controller
     public function zipAll($idOrganizacion)
     {
         // $files = array('readme.txt', 'test.html', 'image.gif');
-        $files=Documento::Where('idEmpresa','=',$idOrganizacion)->pluck('archivo');
+        $files=Documento::Where('idEmpresa', '=', $idOrganizacion)->pluck('archivo');
         $organizacion=CatOrganizacion::find($idOrganizacion);
         $zipname = $organizacion->nombre.time().".zip";
         $zip = new ZipArchive;
         $zip->open($zipname, ZipArchive::CREATE);
         foreach ($files as $file) {
             $ruta=public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'archivos'.DIRECTORY_SEPARATOR.$file;
-             $zip->addFile($ruta, $file);
+            $zip->addFile($ruta, $file);
         }
         $zip->close();
         // dd($zip,$zipname);
@@ -81,5 +100,4 @@ class OrganizacionController extends Controller
         header('Content-Length: ' . filesize($zipname));
         readfile($zipname);
     }
-
 }

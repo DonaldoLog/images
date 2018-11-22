@@ -163,8 +163,25 @@ class AuditoriaController extends Controller
             $archivo->save();
         }
         return redirect()->route('ver.auditoria.componente',[$request->idAuditoria]);
+    }
 
+    public function guardarArchivos(Request $request){
+        $auditoria=Auditoria::find($request->idAuditoria);
+        // dd($auditoria,$request);
+        $nombreComponente=CatComponente::find($auditoria->idCatComponente)->select('nombre')->first();
 
+        foreach ($request->file('file') as $key => $file) {
+            $archivo= new DocAuditoria();
+            $archivo->idAuditoria=$request->idAuditoria;
+            $archivo->nombre=$request->nombre;
+            $name = $nombreComponente->nombre."_".$auditoria->nombre."_".$request->nombre.'_'.$key.'_'.time().'.'.$file->getClientOriginalExtension();
+            $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'auditoria'.DIRECTORY_SEPARATOR.'archivos'.DIRECTORY_SEPARATOR;
+            $file->move($path, $name);
+            $archivo->documento=$name;
+            $archivo->save();
+        }
+
+        return redirect()->route('ver.auditoria.componente',[$request->idAuditoria]);
     }
 
     public function getArchivo($id){
