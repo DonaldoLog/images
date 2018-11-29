@@ -173,7 +173,7 @@ class AuditoriaController extends Controller
         foreach ($request->file('file') as $key => $file) {
             $archivo= new DocAuditoria();
             $archivo->idAuditoria=$request->idAuditoria;
-            $archivo->nombre=$request->nombre;
+            $archivo->nombre = $file->getClientOriginalName();
             $name = $nombreComponente->nombre."_".$auditoria->nombre."_".$request->nombre.'_'.$key.'_'.time().'.'.$file->getClientOriginalExtension();
             $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'auditoria'.DIRECTORY_SEPARATOR.'archivos'.DIRECTORY_SEPARATOR;
             $file->move($path, $name);

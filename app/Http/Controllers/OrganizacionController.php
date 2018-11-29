@@ -56,7 +56,7 @@ class OrganizacionController extends Controller
         foreach ($request->file('file') as $key => $file) {
             $archivo= new Documento();
             $archivo->idEmpresa=$request->idEmpresa;
-            $archivo->nombre=$request->nombreArhivo;
+            $archivo->nombre = $file->getClientOriginalName();
             $name = $nombreEmpresa->nombre."_".$request->nombreArhivo.'_'.$key.'_'.time().'.'.$file->getClientOriginalExtension();
             $path = public_path().DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'archivos'.DIRECTORY_SEPARATOR;
             $file->move($path, $name);

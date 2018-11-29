@@ -112,8 +112,8 @@
       </div>
       <div class="modal-body">
           {!!Form::open(['route'=>'auditoria.save.files','enctype'=>'multipart/form-data'])!!}
-          {!! Form::label('nombre', 'NOMBRE:') !!}
-          {!! Form::text('nombre', null, ['class' => 'form-control mayus','required','id'=>'nombre']) !!}
+          {{-- {!! Form::label('nombre', 'NOMBRE:') !!} --}}
+          {{-- {!! Form::text('nombre', null, ['class' => 'form-control mayus','required','id'=>'nombre']) !!} --}}
           {!! Form::hidden('idFile', '') !!}
           {!! Form::hidden('idAuditoria', $auditoria->id) !!}
           {{-- {!! Form::hidden('idComponente', $idComponente) !!} --}}

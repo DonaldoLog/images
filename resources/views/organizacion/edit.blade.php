@@ -115,8 +115,8 @@
       </div>
       <div class="modal-body">
           {!!Form::open(['route'=>'save.files','enctype'=>'multipart/form-data'])!!}
-              {!! Form::label('nombreArhivo', 'NOMBRE:') !!}
-              {!! Form::text('nombreArhivo', null, ['class' => 'form-control mayus','required','id'=>'nombreArhivo']) !!}
+              {{-- {!! Form::label('nombreArhivo', 'NOMBRE:') !!} --}}
+              {{-- {!! Form::text('nombreArhivo', null, ['class' => 'form-control mayus','required','id'=>'nombreArhivo']) !!} --}}
               {!! Form::hidden('idFile', '') !!}
               {!! Form::hidden('idEmpresa', $organizacion->id) !!}
               {!! Form::hidden('idComponente', $idComponente) !!}
