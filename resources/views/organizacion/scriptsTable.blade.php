@@ -7,7 +7,7 @@ $(".archivo").fileinput({
       showPreview: true,
       showRemove: false,
       showUpload:false,
-      allowedFileExtensions: ['jpg', 'jpeg', 'png','xdoc','ppt']
+      allowedFileExtensions: ['jpg', 'jpeg', 'png','xdoc','ppt','pdf', 'xls', 'xlsx']
   });
 
 </script>

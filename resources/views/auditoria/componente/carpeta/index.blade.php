@@ -191,7 +191,7 @@
             $("#file").fileinput({
                 language: 'es',
                 theme: 'fa',
-                allowedFileExtensions: ['jpg', 'jpeg', 'png', 'pdf'],
+                allowedFileExtensions: ['jpg', 'jpeg', 'png','xdoc','ppt','pdf', 'xls', 'xlsx'],
                 overwriteInitial: true,
                 showUpload: false,
                 showRemove: false,
@@ -255,7 +255,7 @@
               showPreview: true,
               showRemove: false,
               showUpload:false,
-              allowedFileExtensions: ['jpg', 'jpeg', 'png','xdoc','ppt','pdf']
+              allowedFileExtensions: ['jpg', 'jpeg', 'png','xdoc','ppt','pdf', 'xls', 'xlsx']
           });
     });
     $('#addFileMulti').on('click', function(event) {
@@ -267,7 +267,7 @@
               showRemove: false,
               showUpload:false,
 
-              allowedFileExtensions: ['jpg', 'jpeg', 'png','xdoc','ppt','pdf']
+              allowedFileExtensions: ['jpg', 'jpeg', 'png','xdoc','ppt','pdf', 'xls', 'xlsx']
           });
     });
 
