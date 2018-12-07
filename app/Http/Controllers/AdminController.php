@@ -32,21 +32,27 @@ class AdminController extends Controller
     }
 
     public function store(Request $request){
-        $user=new User($request->all());
-        $user->password=bcrypt($request->password);
-        $user->nivel = 3;
-        $user->save();
+        $existe = User::where('email',$request->email)->first();
+        if (!$existe) {
+            $user=new User($request->all());
+            $user->password=bcrypt($request->password);
+            $user->nivel = 3;
+            $user->save();
 
-        $user->assignRole('operador');
+            $user->assignRole('operador');
 
-        foreach ($request->idComponente as $key => $idComponente) {
-            $permiso=new UserPermiso();
-            $permiso->idUsuario=$user->id;
-            $permiso->idComponente=$idComponente;
-            $permiso->save();
+            foreach ($request->idComponente as $key => $idComponente) {
+                $permiso=new UserPermiso();
+                $permiso->idUsuario=$user->id;
+                $permiso->idComponente=$idComponente;
+                $permiso->save();
+            }
+            Alert::success('El usuario '.$user->name.' ha sido  creado con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
+            return redirect()->route('admin.index');
+        }else {
+            Alert::warning('El correo '.$request->email.' ya existe.', 'Hecho')->persistent("Aceptar");
+            return redirect()->back()->withInput();
         }
-        Alert::success('El usuario '.$user->name.' ha sido  creado con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
-        return redirect()->route('admin.index');
     }
 
     public function edit($idUsuario){

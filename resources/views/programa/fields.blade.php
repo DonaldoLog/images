@@ -17,7 +17,7 @@
               showPreview: false,
               showRemove: false,
               showUpload: false,
-              allowedFileExtensions: ['jpg', 'jpeg', 'png','xdoc','ppt','pdf', 'xls', 'xlsx']
+              allowedFileExtensions: ['jpg', 'jpeg', 'png','xdoc','ppt','pdf', 'xls', 'xlsx','doc']
           });
     });
 
