@@ -27,8 +27,33 @@
                     {{-- I  M  A  G E  N  E  S  --}}
                     <div class="row">
                     	<div class="col-md-12">
-                    		<div id="archivosAudioria" class="table-editable">
-                    			<table class="table table-striped table-bordered" width="100%" >
+                    		<div  class="table-editable">
+                                <table id="archivosAudioria" class="table table-striped table-bordered" width="100%" >
+                                    <thead>
+                                        <tr>
+                                            <th>NO.</th>
+                                            <th>NOMBRE</th>
+                                            <th>ACCIONES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($documentos as $documento)
+                                        <tr>
+                                            <td>{!!$documento->id!!}</td>
+                                            <td>{!!$documento->nombre!!}</td>
+                                            <td>
+                                                <button type="button" value='{!!$documento->id!!}'  data-toggle="modal" data-target="#myModal" class="btn btn-info ver">VER</button>
+                                                <button type="button" value='{!!$documento->id!!}'  data-toggle="modal" data-target="#myModal" class="btn btn-warning editar">EDITAR</button>
+                                                <a  href="{{ asset('storage/auditoria/archivos/'.$documento->documento) }}" download class="btn btn-success">DESCARGAR</a>
+                                                <button type="button" name='{!!$documento->nombre!!}' value='{!!$documento->id!!}' class="btn btn-danger eliminar">ELIMINAR</button>
+                                            </td>
+                                        </tr>
+
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
+                    			{{-- <table class="table table-striped table-bordered" width="100%" >
                     				<thead>
                     					<tr>
                     						<th>NO.</th>
@@ -51,7 +76,7 @@
 
                                         @endforeach
                     				</tbody>
-                    			</table>
+                    			</table> --}}
                     		</div>
                     	</div>
                     </div>
@@ -71,7 +96,7 @@
         </div>
     </div>
 </div>
-{{-- @include('organizacion.scriptsTable') --}}
+@include('auditoria.componente.carpeta.scriptsTable')
 
 
 <!-- Modal CREAR -->

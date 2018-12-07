@@ -75,6 +75,27 @@ class AuditoriaController extends Controller
         return redirect()->route('auditoria.componente',[$request->idCatComponente]);
     }
 
+
+    public function documentosDatatable($idAuditoria)
+    {
+        if (Auth::user()->nivel==3) {
+            $componentes =UserPermiso::join('users','users.id','user_permiso.idUsuario')
+            ->where('users.id',Auth::user()->id)
+            ->pluck('user_permiso.idComponente')->toArray();
+            $auditoria=Auditoria::findOrFail($idAuditoria);
+            $idComponente = CatComponente::where('id',$auditoria->idCatComponente)->value('id');
+            if (in_array($idComponente,$componentes)) {
+                $documentos=DocAuditoria::where('idAuditoria',$idAuditoria)->get();
+                return Datatables::of($documentos)->make(true);
+            }else {
+                return Datatables::of("")->make(true);
+            }
+        }else {
+            $documentos=DocAuditoria::where('idAuditoria',$idAuditoria)->get();
+            return Datatables::of($documentos)->make(true);
+        }
+    }
+
     public function verCarpeta($idAuditoria){
         if (Auth::user()->nivel==3) {
             $componentes =UserPermiso::join('users','users.id','user_permiso.idUsuario')

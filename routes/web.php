@@ -78,6 +78,9 @@ Route::post('auditoria/documento/editar/', 'AuditoriaController@editarArchivo')-
 Route::get('auditoria/documento/{id}', 'AuditoriaController@getArchivo')->name('auditoria.file.get');
 Route::post('auditoria/documento/{id}/delete', 'AuditoriaController@docDestroy')->name('auditoria.doc.destroy');
 Route::get('auditoria/documentos/{idAuditoria}', 'AuditoriaController@zipAll')->name('auditoria.zip');
+Route::get('documentos-auditoria-datatable/{idAuditoria}', 'AuditoriaController@documentosDatatable')->name('documentos.auditoria.datatable');
+
+
 
 //------------------------------------------------- A D M I N --------------------------------------------------------------
 Route::get('administrador/usuarios/','AdminController@index')->name('admin.index')->middleware(['role:admin']);;
