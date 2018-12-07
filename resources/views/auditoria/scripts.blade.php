@@ -2,7 +2,7 @@
     <script type="text/javascript">
     $(document).ready(function() {
         $('#componentesTabla').DataTable({
-                    "language":{"url":"//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"},
+                    "language":{"url":'{{ asset('js/Spanish.json') }}'},
                     "processing": true,
                     "serverSide": false,
                     "pageLength": 10,

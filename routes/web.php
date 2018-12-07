@@ -59,6 +59,8 @@ Route::post('documento/editar/', 'OrganizacionController@editarArchivo')->name('
 Route::get('documento/{id}', 'OrganizacionController@getArchivo')->name('file.get');
 Route::post('documento/{id}/delete', 'OrganizacionController@docDestroy')->name('doc.destroy');
 Route::get('documentos/{idOrganizacion}', 'OrganizacionController@zipAll')->name('zip');
+Route::get('documentos-datatable/{idOrganizacion}', 'CatOrganizacionController@documentosDatatable')->name('documentos.datatable');
+
 
 //------------------------------------------------------------------ AUDITORIAS ---------------------------------------------------------------------------------
 Route::get('/auditoria', 'AuditoriaController@index')->name('auditoria.index');

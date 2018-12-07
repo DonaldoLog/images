@@ -76,6 +76,27 @@ class CatOrganizacionController extends Controller
         Alert::success('La organizacion ha sido guardado con éxito.', 'Hecho')->persistent("Aceptar")->autoclose(2000);
         return redirect()->route('componente.index.programa',[$request->idPrograma,$request->idComponente]);
     }
+    public function documentosDatatable($idOrganizacion){
+        if (Auth::user()->nivel==3) {
+            $componentes =UserPermiso::join('users','users.id','user_permiso.idUsuario')
+            ->where('users.id',Auth::user()->id)
+            ->pluck('user_permiso.idComponente')->toArray();
+            $organizaciones = CatOrganizacion::join('cat_componente','cat_componente.id','cat_organizacion.idComponente')
+            ->where('cat_componente.idPrograma',$idPrograma)
+            ->whereIn('cat_componente.id',$componentes)->pluck('cat_organizacion.id')->toArray();
+
+            if (in_array($idOrganizacion,$organizaciones)) {
+                $documentos=Documento::where('idEmpresa','=',$idOrganizacion)->get();
+                return Datatables::of($documentos)->make(true);
+
+            }else {
+                return Datatables::of("")->make(true);
+            }
+        }else {
+            $documentos=Documento::where('idEmpresa','=',$idOrganizacion)->get();
+            return Datatables::of($documentos)->make(true);
+        }
+    }
     public function edit($idPrograma,$idComponente,$idOrganizacion){
         if (Auth::user()->nivel==3) {
             $componentes =UserPermiso::join('users','users.id','user_permiso.idUsuario')

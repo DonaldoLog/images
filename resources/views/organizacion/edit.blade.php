@@ -30,31 +30,18 @@
                     {{-- I  M  A  G E  N  E  S  --}}
                     <div class="row">
                     	<div class="col-md-12">
-                    		<div id="organizacionTable" class="table-editable">
-                    			<table class="table table-striped table-bordered" width="100%" >
-                    				<thead>
-                    					<tr>
-                    						<th>NO.</th>
-                    						<th>NOMBRE</th>
-                    						<th>ACCIONES</th>
-                    					</tr>
-                    				</thead>
-                    				<tbody>
-                                        @foreach ($documentos as $documento)
+                    		<div  class="table-editable">
+                                <table class="table table-striped table-bordered" width="100%" id="organizacionTable">
+                                    <thead>
                                         <tr>
-                                            <td>{!!$documento->id!!}</td>
-                                            <td>{!!$documento->nombre!!}</td>
-                                            <td>
-                                                <button type="button" value='{!!$documento->id!!}'  data-toggle="modal" data-target="#myModal" class="btn btn-info ver">VER</button>
-                                                <button type="button" value='{!!$documento->id!!}'  data-toggle="modal" data-target="#myModal" class="btn btn-warning editar">EDITAR</button>
-                                                <a  href="{{ asset('storage/archivos/'.$documento->archivo) }}" download class="btn btn-success">DESCARGAR</a>
-                                                <button type="button" name='{!!$documento->nombre!!}' value='{!!$documento->id!!}' class="btn btn-danger eliminar">ELIMINAR</button>
-                                            </td>
+                                            <th>NO.</th>
+                                            <th>NOMBRE</th>
+                                            <th>ACCIONES</th>
                                         </tr>
-
-                                        @endforeach
-                    				</tbody>
-                    			</table>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
                     		</div>
                     	</div>
                     </div>
