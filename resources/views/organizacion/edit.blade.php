@@ -194,7 +194,7 @@
             $("#file").fileinput({
                 language: 'es',
                 theme: 'fa',
-                allowedFileExtensions: ['jpg', 'jpeg', 'png','xdoc','ppt','pdf', 'xls', 'xlsx','doc']
+                allowedFileExtensions: ['jpg', 'jpeg', 'png','xdoc','ppt','pdf', 'xls', 'xlsx','doc'],
                 overwriteInitial: true,
                 showUpload: false,
                 showRemove: false,
