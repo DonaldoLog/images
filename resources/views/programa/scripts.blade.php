@@ -28,7 +28,7 @@
         //             ]
         // });
         //--------------------------------------------------------------------------ELIMINAR
-        $('#borrarProgramaBoton').on('click', function(){
+        $('.borrarProgramaBoton').on('click', function(){
             this.preventDefault;
             nombre=this.name;
             numero=$(this).attr('value');
